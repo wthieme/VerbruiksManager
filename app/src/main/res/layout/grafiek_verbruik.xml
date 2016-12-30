@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGroenAchtergrond"
+    android:paddingBottom="0dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvVerbruik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/VerbruikTitel"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spGrCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/lcPerdag"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:minHeight="350dp" />
+
+        <TextView
+            android:id="@+id/tvGeenGegevens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="@string/GeenGegevens"
+            android:textColor="@color/colorOranje"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llKnoppen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabApparaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="10dp"
+            android:src="@drawable/lamp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAppVoegtoe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="10dp"
+            android:src="@drawable/voegtoe" />
+
+    </LinearLayout>
+</RelativeLayout>

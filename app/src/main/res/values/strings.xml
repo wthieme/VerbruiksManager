@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">WattsOnOff</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="AppActie">Apparaat %s</string>
+    <string name="Apparaat">Apparaat:</string>
+    <string name="Categorie">Categorie:</string>
+    <string name="Invoerwijze">Invoerwijze:</string>
+    <string name="Vermogen">Vermogen:</string>
+    <string name="Verbruik">Verbruik:</string>
+    <string name="perdag">per dag</string>
+    <string name="Perdag">Per dag</string>
+    <string name="per">per</string>
+    <string name="keer">keer</string>
+    <string name="uur">uur</string>
+    <string name="UrenKeerPerDag">Uren/keer:</string>
+    <string name="Aantal">Aantal</string>
+    <string name="kW">kW</string>
+    <string name="Euro">Euro</string>
+    <string name="Permaand">Per maand</string>
+    <string name="Perjaar">Per jaar</string>
+    <string name="VerbruikEnKosten">Verbruik en Kosten</string>
+    <string name="TotVerbruikEnKosten">Totaal verbruik en kosten</string>
+    <string name="Apparaten">Apparaten</string>
+    <string name="Wijzigen">Wijzigen</string>
+    <string name="Verwijderen">Verwijderen</string>
+    <string name="Vergelijken">Vergelijken</string>
+    <string name="nodata">Geen gegevens</string>
+    <string name="VerbruikPerCategorie">Verbruik per categorie</string>
+    <string name="MijnApparaten">Mijn apparaten</string>
+    <string name="TipVdDag">Tip van de dag</string>
+    <string name="AlleApps">Alle apparaten</string>
+    <string name="AlleCats">Alle categorieën</string>
+    <string name="VerbruikTitel">Verbruik</string>
+    <string name="GeenGegevens">Geen gegevens</string>
+    <string name="ToonBijOpstart">Toon tip bij opstarten</string>
+    <string name="Ok">Ok</string>
+    <string name="duur">duur</string>
+    <string name="kWhPerKeer">kWh per keer</string>
+    <string name="kWhPer">kWh per</string>
+    <string name="Uitleg1">Gebruik deze invoerwijze voor apparaten met een constant vermogen. Voorbeelden zijn TV, lamp, computer, grasmaaier etc. Lees het Wattage af van de meter en voer vervolgens het Wattage, de duur in uren dat het apparaat aan staat en of dit per dag/week/maand of jaar is in.</string>
+    <string name="Uitleg2">Gebruik deze invoerwijze voor apparaten die "per keer" gebruikt worden. Voorbeelden zijn koffiezetapparaat, wasmachine, droger, waterkoker etc. Meet het aantal kWh dat het apparaat per keer verbruikt. Voer het verbruik (kWh) en het aantal keer per dag/week/maand/jaar dat het apparaat gebruikt wordt in.</string>
+    <string name="komma">,</string>
+    <string name="Uitleg">Uitleg</string>
+    <string name="TitelUitleg">Uitleg gebruik WattsOnOff</string>
+    <string name="keerper">keer per</string>
+    <string name="uurper">uur per</string>
+    <string name="TekstUitleg">
+        <![CDATA[
+        <b><big>Vermogen (Watt) en Verbruik (kWh)</big></b>
+        <p>
+        De watt (symbool W) is de SI-eenheid van vermogen (energie per tijdseenheid). Het vermogen van een apparaat geeft aan hoeveel energie er per seconde verbruikt wordt.
+        <p>
+        Een van de watt  afgeleide eenheid  is de kilowattuur (kWh). De kilowattuur geeft een hoeveelheid energie aan. De prijs van 1 kWh elektriciteit ligt rond de 20 ct en kan in de App worden aangepast bij de instellingen.
+        <p>
+        Een rekenvoorbeeld voor een apparaat van 10 watt. Dit apparaat verbruikt in 24 uur:
+        <p>
+        10 W * 24 h = 240 Wh = 0,24 kWh
+        <p>
+        Per jaar wordt dit 87.6 kWh. Bij een prijs van € 0,20 per kWh zijn de elektriciteitskosten voor dit apparaat € 17.52
+        <p>
+        <b><big>De stroommeter Cost Control 3000</big></b>
+        <p>
+        Doe de stroommeter in het stopcontact en het apparaat dat je wil meten vervolgens in de stroommeter. De meter heeft 2 functies:
+        <p>
+        1.	Aflezen huidige vermogen in Watt
+        <p>
+        2.	Berekening verbruik in kWh over een periode
+        <p>
+        <b>Let op!</b> lees de meter af voordat je hem uit het stopcontact haalt, anders gaan de gemeten waarden verloren.
+        <p>
+        <b><big>Registreren met WattsOnOff</big></b>
+        <p>
+        Er zijn 2 manieren om het energieverbruik van een apparaat in te voeren:
+        <p>
+        1.	Vermogen (Watt) en duur
+        <p>
+        2.	Verbruik (kWh) per keer
+        <p>
+        Afhankelijk van het type apparaat is de eerste of tweede invoerwijze het handigste.
+        <p>
+        <b><big>Vermogen (Watt) en duur</big></b>
+        <p>
+        Gebruik deze invoerwijze voor apparaten met een constant vermogen. Voorbeelden zijn TV, lamp, computer, grasmaaier etc. Lees het Wattage af van de stroommeter en voer vervolgens het Wattage, de duur in uren dat het apparaat aan staat en of dit per dag/week/maand of jaar is in.
+        <p>
+        <b><big>Verbruik (kWh) per keer</big></b>
+        <p>
+        Gebruik deze invoerwijze voor apparaten die "per keer" gebruikt worden. Voorbeelden zijn koffiezetapparaat, wasmachine, droger, waterkoker etc. Meet het aantal kWh dat het apparaat per keer verbruikt. Voer het verbruik (kWh) en het aantal keer per dag/week/maand/jaar dat het apparaat gebruikt wordt in.
+        <p>
+        Deze invoerwijze kan ook gebruikt worden voor apparaten die niet de op een constant vermogen draaien. Voorbeelden hiervan zijn koelkast, diepvries, CV etc. Meet gedurende 24 uur met de stroommeter het verbruik in kWh en voer dit in als Verbruik, 1 keer per dag.
+        ]]>
+    </string>
+
+    <string-array name="InvoerWijze">
+        <item>Vermogen (W) en duur</item>
+        <item>Verbruik (kWh) per keer </item>
+    </string-array>
+
+    <string-array name="DagWeekMaandJaar">
+        <item>dag</item>
+        <item>week</item>
+        <item>maand</item>
+        <item>jaar</item>
+    </string-array>
+
+    <string-array name="MinutenUrenDagen">
+        <item>minuten</item>
+        <item>uren</item>
+        <item>dagen</item>
+    </string-array>
+
+    <string-array name="JaarMaandDag">
+        <item>Jaar</item>
+        <item>Maand</item>
+        <item>Dag</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#088A08</color>
+    <color name="colorPrimaryDark">#0B610B</color>
+    <color name="colorTekst">#04B404</color>
+    <color name="colorGroenAchtergrond">#E0F8E6</color>
+    <color name="colorOranje">#DF7401</color>
+    <color name="colorBackgroundFab">#F6E3CE</color>
+    <color name="colorAccent">#088A08</color>
+    <color name="colorOranjeDark">#8A4B08</color>
+    <color name="colorGrafiek1">#D98880</color>
+    <color name="colorGrafiek2">#C39BD3</color>
+    <color name="colorGrafiek3">#7FB3D5</color>
+    <color name="colorGrafiek4">#85C1E9</color>
+    <color name="colorGrafiek5">#76D7C4</color>
+    <color name="colorGrafiek6">#73C6B6</color>
+    <color name="colorGrafiek7">#F7DC6F</color>
+    <color name="colorGrafiek8">#F0B27A</color>
+    <color name="colorGrafiek9">#CACFD2</color>
+    <color name="colorGrafiek10">#F2D7D5</color>
+    <color name="colorGrafiek11">#F5B7B1</color>
+    <color name="colorGrafiek12">#EBDEF0</color>
+    <color name="colorGrafiek13">#D2B4DE</color>
+    <color name="colorGrafiek14">#D4E6F1</color>
+    <color name="colorGrafiek15">#AED6F1</color>
+    <color name="colorGrafiek16">#D1F2EB</color>
+    <color name="colorGrafiek17">#A2D9CE</color>
+    <color name="colorGrafiek18">#D4EFDF</color>
+    <color name="colorGrafiek19">#ABEBC6</color>
+    <color name="colorGrafiek20">#FCF3CF</color>
+    <color name="colorGrafiek21">#FAD7A0</color>
+    <color name="colorGrafiek22">#FAE5D3</color>
+    <color name="colorGrafiek23">#EDBB99</color>
+    <color name="colorGrafiek24">#F2F3F4</color>
+    <color name="colorGrafiek25">#D5DBDB</color>
+</resources>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGroenAchtergrond"
+    android:paddingBottom="0dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvActie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/AppActie"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAppId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="100dp"
+                android:text="@string/Apparaat"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etApparaat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text"
+                android:inputType="text"
+                android:maxLength="30"
+                android:nextFocusDown="@+id/etVermogen"
+                android:singleLine="true"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:width="100dp"
+                android:text="@string/Categorie"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spCategorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:width="100dp"
+                android:text="@string/Invoerwijze"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spInvoerWijze"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:entries="@array/InvoerWijze"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvUitleg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTekst"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:id="@+id/llVermogen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Vermogen"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etVermogen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:width="60dp"
+                android:background="@drawable/edit_text"
+                android:inputType="number"
+                android:maxLength="4"
+                android:nextFocusDown="@+id/etAantalUur"
+                android:singleLine="true"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/komma"
+                android:textColor="@color/colorTekst"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etAantalUur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:width="40dp"
+                android:background="@drawable/edit_text"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:text="@string/uurper"
+                android:textColor="@color/colorTekst"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spDagWeekMaandJaarW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:entries="@array/DagWeekMaandJaar"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llVerbruik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Verbruik"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etVerbruik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:width="65dp"
+                android:background="@drawable/edit_text"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:nextFocusDown="@+id/etAantalKeer"
+                android:singleLine="true"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/komma"
+                android:textColor="@color/colorTekst"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etAantalKeer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:width="40dp"
+                android:background="@drawable/edit_text"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:text="@string/keerper"
+                android:textColor="@color/colorTekst"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spDagWeekMaandJaarKwh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:entries="@array/DagWeekMaandJaar"
+                android:textColor="@color/colorOranje"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/VerbruikEnKosten"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvr1k1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:text="@string/Perdag"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvr1k2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvr1k3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvr2k1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:text="@string/Permaand"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvr2k2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvr2k3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="13sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvr3k1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="100dp"
+                    android:text="@string/Perjaar"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvr3k2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvr3k3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/colorOranje"
+                    android:textSize="14sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/save" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/cancel" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabVerwijder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/delete" />
+
+    </LinearLayout>
+
+</RelativeLayout>

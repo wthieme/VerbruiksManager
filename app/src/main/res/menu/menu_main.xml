@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="nl.whitedove.verbruiksmanager.MainActivity">
+    <item
+        android:id="@+id/action_Settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_TipVdDag"
+        android:orderInCategory="200"
+        android:title="@string/TipVdDag"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Uitleg"
+        android:orderInCategory="200"
+        android:title="@string/Uitleg"
+        app:showAsAction="never" />
+</menu>

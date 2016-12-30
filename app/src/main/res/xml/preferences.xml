@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="WattsOnOff instellingen"
+        android:layout="@layout/pref_layout">
+        <EditTextPreference
+            android:defaultValue="0.20"
+            android:key="kWhPrijs"
+            android:inputType="numberDecimal"
+            android:title="Prijs per kilowattuur"
+            android:textColor="@color/colorOranje"/>
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="Tips"
+            android:title="Toon tip van de dag bij opstarten"
+            android:textColor="@color/colorOranje"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
