@@ -10,28 +10,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ContextMenuAdapter extends BaseAdapter {
-    Context context;
-    List<ContextMenuItem> listContextMenuItems;
-    LayoutInflater inflater;
+class ContextMenuAdapter extends BaseAdapter {
+    private Context context;
+    private List<ContextMenuItem> listContextMenuItems;
 
-    public ContextMenuAdapter(Context context,
+    ContextMenuAdapter(Context context,
                               List<ContextMenuItem> listContextMenuItems) {
         super();
         this.context = context;
         this.listContextMenuItems = listContextMenuItems;
     }
 
-    static class ViewHolder {
-        protected ImageView imageView;
-        protected TextView textView;
+    private static class ViewHolder {
+        ImageView imageView;
+        TextView textView;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            inflater = (LayoutInflater) context
+            LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.context_menu_item, parent,

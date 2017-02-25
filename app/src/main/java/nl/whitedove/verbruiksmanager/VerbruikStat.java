@@ -1,31 +1,31 @@
 package nl.whitedove.verbruiksmanager;
 
-public class VerbruikStat {
+class VerbruikStat {
 
-    String _Name;
-    double _Verbruik;
+    private String _Name;
+    private double _Verbruik;
 
-    public VerbruikStat() {
+    VerbruikStat() {
     }
 
-    public VerbruikStat(String name, int verbruik) {
+    VerbruikStat(String name, int verbruik) {
         this._Name = name;
         this._Verbruik = verbruik;
     }
 
-    public double getVerbruik() {
+    double getVerbruik() {
         return this._Verbruik;
     }
 
-    public void setVerbruik(double verbruik) {
+    void setVerbruik(double verbruik) {
         this._Verbruik = verbruik;
     }
 
-    public String getName() {
+    String getName() {
         return this._Name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this._Name = name;
     }
 }

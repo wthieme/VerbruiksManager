@@ -11,14 +11,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class CustomListAdapterApparaten extends BaseAdapter {
+class CustomListAdapterApparaten extends BaseAdapter {
 
     private List<Apparaat> listData;
     private LayoutInflater layoutInflater;
     private Helper.JaarMaandDagType jmd;
     private Context context;
 
-    public CustomListAdapterApparaten(Context context, List<Apparaat> listData, Helper.JaarMaandDagType jmd) {
+    CustomListAdapterApparaten(Context context, List<Apparaat> listData, Helper.JaarMaandDagType jmd) {
         this.listData = listData;
         Collections.sort(listData, new ApparaatComparator());
         this.jmd = jmd;
@@ -45,7 +45,7 @@ public class CustomListAdapterApparaten extends BaseAdapter {
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.apparaten_list_layout, null);
+            convertView = layoutInflater.inflate(R.layout.apparaten_list_layout, parent, false);
             holder = new ViewHolder();
             holder.tvApparaatId = (TextView) convertView.findViewById(R.id.tvApparaatId);
             holder.tvApparaatNaam = (TextView) convertView.findViewById(R.id.tvApparaatNaam);
@@ -73,14 +73,14 @@ public class CustomListAdapterApparaten extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView tvApparaatNaam;
         TextView tvApparaatVerbruik;
         TextView tvApparaatKosten;
         TextView tvApparaatId;
     }
 
-    public class ApparaatComparator implements Comparator<Apparaat> {
+    private class ApparaatComparator implements Comparator<Apparaat> {
         public int compare(Apparaat left, Apparaat right) {
             ApparaatVerbruik avLeft = Helper.BerekenVerbruik(left, 1f);
             ApparaatVerbruik avRight = Helper.BerekenVerbruik(right, 1f);

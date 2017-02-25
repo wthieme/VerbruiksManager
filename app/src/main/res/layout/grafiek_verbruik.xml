@@ -38,9 +38,9 @@
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/lcPerdag"
+            android:id="@+id/pcVerbruik"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:layout_marginTop="10dp"
             android:minHeight="350dp" />
 

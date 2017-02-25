@@ -14,86 +14,86 @@ public class Apparaat {
     private int _AantalKeer;
     private int _VerbruikPer;
 
-    public Apparaat() {
+    Apparaat() {
     }
 
-    public int getId() {
+    int getId() {
         return this._Id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this._Id = id;
     }
 
-    public String getName() {
+    String getName() {
         return this._Name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this._Name = name;
     }
 
-    public int getCategorieId() {
+    int getCategorieId() {
         return this._CategorieId;
     }
 
-    public void setCategorieId(int categorieId) {
+    void setCategorieId(int categorieId) {
         this._CategorieId = categorieId;
     }
 
-    public int getInvoerWijze() {
+    int getInvoerWijze() {
         return this._InvoerWijze;
     }
 
-    public void setInvoerWijze(int invoerWijze) {
+    void setInvoerWijze(int invoerWijze) {
         this._InvoerWijze = invoerWijze;
     }
 
-    public int getVermogen() {
+    int getVermogen() {
         return this._Vermogen;
     }
 
-    public void setVermogen(int vermogen) {
+    void setVermogen(int vermogen) {
         this._Vermogen = vermogen;
     }
 
-    public int getAantalUur() {
+    int getAantalUur() {
         return this._AantalUur;
     }
 
-    public void setAantalUur(int aantalUur) {
+    void setAantalUur(int aantalUur) {
         this._AantalUur = aantalUur;
     }
 
-    public int getGedurendePer() {
+    int getGedurendePer() {
         return this._GedurendePer;
     }
 
-    public void setGedurendePer(int gedurendePer) {
+    void setGedurendePer(int gedurendePer) {
         this._GedurendePer = gedurendePer;
     }
 
-    public double getVerbruik() {
+    double getVerbruik() {
         return this._Verbruik;
     }
 
-    public void setVerbruik(double verbruik) {
+    void setVerbruik(double verbruik) {
         this._Verbruik = verbruik;
     }
 
-    public int getAantalKeer() {
+    int getAantalKeer() {
         return this._AantalKeer;
     }
 
-    public void setAantalKeer(int aantalKeer) {
+    void setAantalKeer(int aantalKeer) {
         this._AantalKeer = aantalKeer;
     }
 
-    public int getVerbruikPer() {
+    int getVerbruikPer() {
         return this._VerbruikPer;
     }
 
-    public void setVerbruikPer(int verbruikPer) {
+    void setVerbruikPer(int verbruikPer) {
         this._VerbruikPer = verbruikPer;
     }
 

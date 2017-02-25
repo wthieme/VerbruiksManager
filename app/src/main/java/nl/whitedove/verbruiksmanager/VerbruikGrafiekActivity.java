@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,11 +16,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
@@ -66,7 +70,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
 
     private void Init() {
         FloatingActionButton fabAppVoegtoe = (FloatingActionButton) findViewById(R.id.fabAppVoegtoe);
-        fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabAppVoegtoe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +79,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabApparaten = (FloatingActionButton) findViewById(R.id.fabApparaten);
-        fabApparaten.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabApparaten.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabApparaten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,7 +143,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
     }
 
     private void ToonGrafiek(List<VerbruikStat> stats) {
-        PieChart chart = (PieChart) findViewById(R.id.lcPerdag);
+        PieChart chart = (PieChart) findViewById(R.id.pcVerbruik);
         TextView tvGeenGegevens = (TextView) findViewById(R.id.tvGeenGegevens);
         if (stats == null || stats.size() == 0) {
             chart.setVisibility(View.GONE);
@@ -149,88 +153,87 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             tvGeenGegevens.setVisibility(View.GONE);
             chart.setVisibility(View.VISIBLE);
         }
-
-        chart.setDescription("");
+        Description desc = new Description();
+        desc.setText("");
+        chart.setDescription(desc);
         chart.setTouchEnabled(false);
         chart.setNoDataText(getString(R.string.nodata));
-        Legend legend = chart.getLegend();
-        legend.setEnabled(true);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setFormSize(10);
-        legend.setWordWrapEnabled(true);
-        legend.setXEntrySpace(20f);
-        legend.setTextSize(12f);
-        legend.setMaxSizePercent(20f);
 
         double totaal = 0f;
-
-        int[] colors = new int[]{getResources().getColor(R.color.colorGrafiek1),
-                getResources().getColor(R.color.colorGrafiek2),
-                getResources().getColor(R.color.colorGrafiek3),
-                getResources().getColor(R.color.colorGrafiek4),
-                getResources().getColor(R.color.colorGrafiek5),
-                getResources().getColor(R.color.colorGrafiek6),
-                getResources().getColor(R.color.colorGrafiek7),
-                getResources().getColor(R.color.colorGrafiek8),
-                getResources().getColor(R.color.colorGrafiek9),
-                getResources().getColor(R.color.colorGrafiek10),
-                getResources().getColor(R.color.colorGrafiek11),
-                getResources().getColor(R.color.colorGrafiek12),
-                getResources().getColor(R.color.colorGrafiek13),
-                getResources().getColor(R.color.colorGrafiek14),
-                getResources().getColor(R.color.colorGrafiek15),
-                getResources().getColor(R.color.colorGrafiek16),
-                getResources().getColor(R.color.colorGrafiek17),
-                getResources().getColor(R.color.colorGrafiek18),
-                getResources().getColor(R.color.colorGrafiek19),
-                getResources().getColor(R.color.colorGrafiek20),
-                getResources().getColor(R.color.colorGrafiek21),
-                getResources().getColor(R.color.colorGrafiek22),
-                getResources().getColor(R.color.colorGrafiek23),
-                getResources().getColor(R.color.colorGrafiek24),
-                getResources().getColor(R.color.colorGrafiek25)};
+        int[] colors = new int[]{ContextCompat.getColor(this, R.color.colorGrafiek1),
+                ContextCompat.getColor(this, R.color.colorGrafiek2),
+                ContextCompat.getColor(this, R.color.colorGrafiek3),
+                ContextCompat.getColor(this, R.color.colorGrafiek4),
+                ContextCompat.getColor(this, R.color.colorGrafiek5),
+                ContextCompat.getColor(this, R.color.colorGrafiek6),
+                ContextCompat.getColor(this, R.color.colorGrafiek7),
+                ContextCompat.getColor(this, R.color.colorGrafiek8),
+                ContextCompat.getColor(this, R.color.colorGrafiek9),
+                ContextCompat.getColor(this, R.color.colorGrafiek10),
+                ContextCompat.getColor(this, R.color.colorGrafiek11),
+                ContextCompat.getColor(this, R.color.colorGrafiek12),
+                ContextCompat.getColor(this, R.color.colorGrafiek13),
+                ContextCompat.getColor(this, R.color.colorGrafiek14),
+                ContextCompat.getColor(this, R.color.colorGrafiek15),
+                ContextCompat.getColor(this, R.color.colorGrafiek16),
+                ContextCompat.getColor(this, R.color.colorGrafiek17),
+                ContextCompat.getColor(this, R.color.colorGrafiek18),
+                ContextCompat.getColor(this, R.color.colorGrafiek19),
+                ContextCompat.getColor(this, R.color.colorGrafiek20),
+                ContextCompat.getColor(this, R.color.colorGrafiek21),
+                ContextCompat.getColor(this, R.color.colorGrafiek22),
+                ContextCompat.getColor(this, R.color.colorGrafiek23),
+                ContextCompat.getColor(this, R.color.colorGrafiek24),
+                ContextCompat.getColor(this, R.color.colorGrafiek25)};
 
         for (VerbruikStat stat : stats) {
             totaal += stat.getVerbruik();
         }
 
-        List<String> xVals = new ArrayList<>();
-        ArrayList<Entry> dataT = new ArrayList<>();
-        int i = 1;
+        ArrayList<PieEntry> dataT = new ArrayList<>();
+        int i = 0;
 
-        String[] labels = new String[stats.size()];
-        int[] cols = new int[stats.size()];
+        ArrayList<LegendEntry> les = new ArrayList<>();
 
         for (VerbruikStat stat : stats) {
             long procent = Math.round(100.0 * stat.getVerbruik() / totaal);
-            if (procent > 1) xVals.add(String.format("%d%%", procent));
-            else xVals.add("");
-            labels[i - 1] = stat.getName();
-            cols[i - 1] = colors[i - 1];
-            dataT.add(new Entry(procent, i++));
+
+            String txt = procent > 1 ? String.format("%d%%", procent) : "";
+            dataT.add(new PieEntry(procent, txt));
+            LegendEntry le = new LegendEntry();
+            le.formColor = colors[i++];
+            le.label = stat.getName();
+            le.form = Legend.LegendForm.SQUARE;
+            le.formSize = 10;
+            les.add(le);
         }
 
-        legend.setCustom(cols, labels);
+        Legend legend = chart.getLegend();
+        legend.setCustom(les);
+        legend.setEnabled(true);
+        legend.setXEntrySpace(20f);
+        legend.setTextSize(12f);
+        legend.setWordWrapEnabled(true);
 
         PieDataSet dsT = new PieDataSet(dataT, "");
         dsT.setColors(colors);
 
-        ValueFormatter myformat = new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return "";
-            }
-        };
-        dsT.setValueFormatter(myformat);
+        dsT.setValueFormatter(new MyValueFormatter());
 
-        PieData data = new PieData(xVals, dsT);
+        PieData data = new PieData(dsT);
         data.setValueTextSize(14f);
-        data.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+        data.setValueTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
 
         chart.setData(data);
         chart.animateXY(500, 500);
         chart.invalidate();
+    }
+
+    public class MyValueFormatter implements IValueFormatter {
+        @Override
+        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            return "";
+        }
     }
 
     private class AsyncGetStatsTask extends AsyncTask<String, Void, List<VerbruikStat>> {
@@ -239,10 +242,10 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         protected List<VerbruikStat> doInBackground(String... params) {
 
             String sCat = params[0];
-            List<VerbruikStat> stats = null;
+            List<VerbruikStat> stats;
             int catId = -1;
-            Boolean alleCats = (sCat == getResources().getString(R.string.AlleCats));
-            Boolean alleApps = (sCat == getResources().getString(R.string.AlleApps));
+            Boolean alleCats = sCat.equals(getResources().getString(R.string.AlleCats));
+            Boolean alleApps = sCat.equals(getResources().getString(R.string.AlleApps));
             if (!alleCats && !alleApps) {
                 Categorie cat = mDH.getCategoriebyName(sCat);
                 catId = cat.getID();

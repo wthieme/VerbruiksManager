@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +58,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
 
     private void Init() {
         FloatingActionButton fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
-        fabSave.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabSave.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +67,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabCancel = (FloatingActionButton) findViewById(R.id.fabCancel);
-        fabCancel.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabCancel.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +76,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabVerwijder = (FloatingActionButton) findViewById(R.id.fabVerwijder);
-        fabVerwijder.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabVerwijder.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabVerwijder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +146,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
         String sAppId = tvAppId.getText().toString();
 
-        if (sAppId != null && !sAppId.isEmpty()) {
+        if (!sAppId.isEmpty()) {
             int appId = Integer.parseInt(sAppId);
             mDH.deleteApparaat(appId);
         }
@@ -168,7 +169,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
         String sAppId = tvAppId.getText().toString();
 
-        if (sAppId.isEmpty() || sAppId == "-1") {
+        if (sAppId.isEmpty() || sAppId.equals("-1")) {
             ApparaatToevoegen();
         } else {
             ApparaatWijzigen();
@@ -267,7 +268,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             llVerbruik.setVisibility(View.GONE);
             etApparaat.setNextFocusDownId(R.id.etVermogen);
             tvUitleg.setText(getString(R.string.Uitleg1));
-        } else if (invoerWijze == Helper.InvoerwijzeType.VerbruikPerKeer) {
+        } else {
             llVerbruik.setVisibility(View.VISIBLE);
             llVermogen.setVisibility(View.GONE);
             etApparaat.setNextFocusDownId(R.id.etVerbruik);
@@ -353,7 +354,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
 
         Apparaat apparaat = new Apparaat();
         String sAppId = tvAppId.getText().toString();
-        if (sAppId != null && !sAppId.isEmpty()) {
+        if (!sAppId.isEmpty()) {
             apparaat.setId(Integer.parseInt(sAppId));
         }
 

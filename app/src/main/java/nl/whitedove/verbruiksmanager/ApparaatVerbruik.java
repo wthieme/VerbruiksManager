@@ -1,6 +1,6 @@
 package nl.whitedove.verbruiksmanager;
 
-public class ApparaatVerbruik {
+class ApparaatVerbruik {
 
     //private variables
     private int _Id;
@@ -11,62 +11,62 @@ public class ApparaatVerbruik {
     private double _KostenMaand;
     private double _KostenJaar;
 
-    public ApparaatVerbruik() {
+    ApparaatVerbruik() {
     }
 
-    public int getId() {
+    int getId() {
         return this._Id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this._Id = id;
     }
 
-    public double getVerbruikDag() {
+    double getVerbruikDag() {
         return this._VerbruikDag;
     }
 
-    public void setVerbruikDag(double verbruikDag) {
+    void setVerbruikDag(double verbruikDag) {
         this._VerbruikDag = verbruikDag;
     }
 
-    public double getVerbruikMaand() {
+    double getVerbruikMaand() {
         return this._VerbruikMaand;
     }
 
-    public void setVerbruikMaand(double verbruikMaand) {
+    void setVerbruikMaand(double verbruikMaand) {
         this._VerbruikMaand = verbruikMaand;
     }
 
-    public double getVerbruikJaar() {
+    double getVerbruikJaar() {
         return this._VerbruikJaar;
     }
 
-    public void setVerbruikJaar(double verbruikJaar) {
+    void setVerbruikJaar(double verbruikJaar) {
         this._VerbruikJaar = verbruikJaar;
     }
 
-    public double getKostenDag() {
+    double getKostenDag() {
         return this._KostenDag;
     }
 
-    public void setKostenDag(double kostenDag) {
+    void setKostenDag(double kostenDag) {
         this._KostenDag = kostenDag;
     }
 
-    public double getKostenMaand() {
+    double getKostenMaand() {
         return this._KostenMaand;
     }
 
-    public void setKostenMaand(double kostenMaand) {
+    void setKostenMaand(double kostenMaand) {
         this._KostenMaand = kostenMaand;
     }
 
-    public double getKostenJaar() {
+    double getKostenJaar() {
         return this._KostenJaar;
     }
 
-    public void setKostenJaar(double kostenJaar) {
+    void setKostenJaar(double kostenJaar) {
         this._KostenJaar = kostenJaar;
     }
 }

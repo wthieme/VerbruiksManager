@@ -3,7 +3,7 @@ package nl.whitedove.verbruiksmanager;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TipsHelper {
+class TipsHelper {
 
     private static final ArrayList<Tip> mLijst = new ArrayList<>();
     private static final Random rnd = new Random();
@@ -11,10 +11,9 @@ public class TipsHelper {
     private static void nieuweTip(int id, String tekst) {
         Tip tip = new Tip(id, tekst);
         mLijst.add(tip);
-        return;
     }
 
-    public static String GeefTip() {
+    static String GeefTip() {
         MaakLijst();
 
         int index = rnd.nextInt(mLijst.size());
@@ -23,7 +22,7 @@ public class TipsHelper {
 
     private static void MaakLijst() {
 
-        if (mLijst.size()!=0) {
+        if (mLijst.size() != 0) {
             return;
         }
 

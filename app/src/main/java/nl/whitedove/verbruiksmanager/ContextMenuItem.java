@@ -2,30 +2,30 @@ package nl.whitedove.verbruiksmanager;
 
 import android.graphics.drawable.Drawable;
 
-public class ContextMenuItem {
+class ContextMenuItem {
 
-    Drawable drawable;
-    String text;
+    private Drawable drawable;
+    private String text;
 
-    public ContextMenuItem(Drawable drawable, String text) {
+    ContextMenuItem(Drawable drawable, String text) {
         super();
         this.drawable = drawable;
         this.text = text;
     }
 
-    public Drawable getDrawable() {
+    Drawable getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(Drawable drawable) {
+    void setDrawable(Drawable drawable) {
         this.drawable = drawable;
     }
 
-    public String getText() {
+    String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    void setText(String text) {
         this.text = text;
     }
 

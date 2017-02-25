@@ -1,29 +1,26 @@
 package nl.whitedove.verbruiksmanager;
 
-public class Categorie {
+class Categorie {
 
-    int _Id;
-    String _Name;
+    private int _Id;
+    private String _Name;
 
-    public Categorie() {
+    Categorie() {
     }
 
-    public Categorie(int id, String name) {
-        this._Id = id;
-        this._Name = name;
-    }
-
-    public int getID() {
+    int getID() {
         return this._Id;
     }
-    public void setID(int id) {
+
+    void setID(int id) {
         this._Id = id;
     }
 
-    public String getName() {
+    String getName() {
         return this._Name;
     }
-    public void setName(String name) {
+
+    void setName(String name) {
         this._Name = name;
     }
 }

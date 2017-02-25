@@ -7,20 +7,20 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
-public class Helper {
-    public static final boolean DEBUG = false;
-    public static boolean TipGehad = false;
-    public static String CategorieSelectieMain = "";
-    public static String SelectieGrafiek = "";
-    public static String JaarMaandDagSelectie = "";
+class Helper {
+    private static final boolean DEBUG = false;
+    static boolean TipGehad = false;
+    static String CategorieSelectieMain = "";
+    static String SelectieGrafiek = "";
+    static String JaarMaandDagSelectie = "";
 
-    public enum CatAppType {
+    enum CatAppType {
         AlleCategorieen,
         AlleApparaten,
-        EenCategorie;
+        EenCategorie
     }
 
-    public enum ActieType {
+    enum ActieType {
         toevoegen(1),
         wijzigen(2);
 
@@ -44,7 +44,7 @@ public class Helper {
         }
     }
 
-    public enum SchermType {
+    enum SchermType {
         LijstApparaten(1),
         Grafiek(2);
 
@@ -68,7 +68,7 @@ public class Helper {
         }
     }
 
-    public enum InvoerwijzeType {
+    enum InvoerwijzeType {
         VermogenPerTijd(1),
         VerbruikPerKeer(2);
 
@@ -92,7 +92,7 @@ public class Helper {
         }
     }
 
-    public enum JaarMaandDagType {
+    enum JaarMaandDagType {
         Jaar(1),
         Maand(2),
         Dag(3);
@@ -117,7 +117,7 @@ public class Helper {
         }
     }
 
-    public enum DagWeekMaandJaarType {
+    enum DagWeekMaandJaarType {
         dag(1),
         week(2),
         maand(3),
@@ -143,7 +143,7 @@ public class Helper {
         }
     }
 
-    public static String getVerbruikString(double verbruik) {
+    static String getVerbruikString(double verbruik) {
         if (verbruik > 10000f)
             return String.format("%.0f kWh", verbruik / 1000f);
         if (verbruik > 1000f)
@@ -151,11 +151,11 @@ public class Helper {
         return String.format("%.2f kWh", verbruik / 1000f);
     }
 
-    public static String getEuroString(double kosten) {
+    static String getEuroString(double kosten) {
         return String.format("€ %.2f", kosten);
     }
 
-    public static double GetPrijs(Context ctx) {
+    static double GetPrijs(Context ctx) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         String sPrijs = preferences.getString("kWhPrijs", "");
         double prijs = 0f;
@@ -165,13 +165,13 @@ public class Helper {
         return prijs;
     }
 
-    public static boolean TipsStaanUit(Context ctx) {
+    static boolean TipsStaanUit(Context ctx) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         boolean tipsAan = preferences.getBoolean("Tips", false);
         return !tipsAan;
     }
 
-    public static boolean tryParseInt(String value) {
+    static boolean tryParseInt(String value) {
         try {
             Integer.parseInt(value);
             return true;
@@ -180,7 +180,7 @@ public class Helper {
         }
     }
 
-    public static boolean tryParseDouble(String value) {
+    static boolean tryParseDouble(String value) {
         try {
             Double.parseDouble(value);
             return true;
@@ -189,7 +189,7 @@ public class Helper {
         }
     }
 
-    public static ApparaatVerbruik BerekenVerbruik(Apparaat apparaat, double prijs) {
+    static ApparaatVerbruik BerekenVerbruik(Apparaat apparaat, double prijs) {
 
         Helper.InvoerwijzeType invoerWijze = Helper.InvoerwijzeType.fromInt(apparaat.getInvoerWijze());
         DateTime nu = DateTime.now();
@@ -230,20 +230,20 @@ public class Helper {
         return apv;
     }
 
-    public static void Log(String log) {
+    static void Log(String log) {
         if (Helper.DEBUG) {
             System.out.println(log);
         }
     }
 
-    public static void ShowMessage(Context cxt, String melding) {
+    static void ShowMessage(Context cxt, String melding) {
         Helper.Log(melding);
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(cxt, melding, duration);
         toast.show();
     }
 
-    public static void ToonTip(Context ctx) {
+    static void ToonTip(Context ctx) {
         String tip = TipsHelper.GeefTip();
         TipDialoog td = new TipDialoog(ctx, tip);
         td.show();

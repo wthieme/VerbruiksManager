@@ -1,11 +1,13 @@
 package nl.whitedove.verbruiksmanager;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         InitSpinners();
 
         FloatingActionButton fabAppVoegtoe = (FloatingActionButton) findViewById(R.id.fabAppVoegtoe);
-        fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabAppVoegtoe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FloatingActionButton fabGrafiek = (FloatingActionButton) findViewById(R.id.fabGrafiek);
-        fabGrafiek.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBackgroundFab)));
+        fabGrafiek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabGrafiek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         String sCat = spCat.getSelectedItem().toString();
         Helper.CategorieSelectieMain = sCat;
         int catId = -1;
-        if (sCat != getResources().getString(R.string.AlleApps)) {
+        if (!sCat.equals(getResources().getString(R.string.AlleApps))) {
             Categorie cat = mDH.getCategoriebyName(sCat);
             catId = cat.getID();
         }
@@ -238,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @SuppressLint("InflateParams")
     public void NewMenu(final int AppId) {
         List<ContextMenuItem> contextMenuItems;
         final Dialog customDialog = new Dialog(this);
@@ -253,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
         contextMenuItems = new ArrayList<>();
 
-        contextMenuItems.add(new ContextMenuItem(getResources().getDrawable(R.drawable.wijzig), getString(R.string.Wijzigen)));
-        contextMenuItems.add(new ContextMenuItem(getResources().getDrawable(R.drawable.delete), getString(R.string.Verwijderen)));
+        contextMenuItems.add(new ContextMenuItem(ContextCompat.getDrawable(this, R.drawable.wijzig), getString(R.string.Wijzigen)));
+        contextMenuItems.add(new ContextMenuItem(ContextCompat.getDrawable(this, R.drawable.delete), getString(R.string.Verwijderen)));
 
         adapter = new ContextMenuAdapter(this, contextMenuItems);
         listView.setAdapter(adapter);
@@ -272,9 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
                     case 1:
                         ApparaatVerwijderen(AppId);
-                        return;
                 }
-                return;
             }
         });
 

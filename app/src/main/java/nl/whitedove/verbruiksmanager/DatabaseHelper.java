@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "VerbruiksManager";
@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CTE_ID = "Id";
     private static final String CTE_NAME = "Name";
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public void addApparaat(Apparaat apparaat) {
+    void addApparaat(Apparaat apparaat) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(APT_NAME, apparaat.getName());
@@ -97,24 +97,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 APT_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if (cursor != null)
-            cursor.moveToFirst();
-
         Apparaat apparaat = new Apparaat();
-        apparaat.setId(cursor.getInt(0));
-        apparaat.setName(cursor.getString(1));
-        apparaat.setCategorieId(cursor.getInt(2));
-        apparaat.setInvoerWijze(cursor.getInt(3));
-        apparaat.setVermogen(cursor.getInt(4));
-        apparaat.setAantalUur(cursor.getInt(5));
-        apparaat.setGedurendePer(cursor.getInt(6));
-        apparaat.setVerbruik(cursor.getDouble(7));
-        apparaat.setAantalKeer(cursor.getInt(8));
-        apparaat.setVerbruikPer(cursor.getInt(9));
+        if (cursor != null) {
+            cursor.moveToFirst();
+            apparaat.setId(cursor.getInt(0));
+            apparaat.setName(cursor.getString(1));
+            apparaat.setCategorieId(cursor.getInt(2));
+            apparaat.setInvoerWijze(cursor.getInt(3));
+            apparaat.setVermogen(cursor.getInt(4));
+            apparaat.setAantalUur(cursor.getInt(5));
+            apparaat.setGedurendePer(cursor.getInt(6));
+            apparaat.setVerbruik(cursor.getDouble(7));
+            apparaat.setAantalKeer(cursor.getInt(8));
+            apparaat.setVerbruikPer(cursor.getInt(9));
+            cursor.close();
+        }
         return apparaat;
     }
 
-    public List<Apparaat> getApparaten(int catId) {
+    List<Apparaat> getApparaten(int catId) {
         List<Apparaat> list = new ArrayList<>();
         String selectQuery = "SELECT "
                 + APT_ID + ","
@@ -156,11 +157,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 list.add(apparaat);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
         return list;
     }
 
-    public List<VerbruikStat> getJaarStats(Helper.CatAppType CatApp, int catId) {
+    List<VerbruikStat> getJaarStats(Helper.CatAppType CatApp, int catId) {
         String selectQuery = "SELECT "
                 + TAB_APPARAAT + "." + APT_ID + ","
                 + TAB_APPARAAT + "." + APT_NAME + ","
@@ -214,17 +215,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     stat.setName(catOrName);
                     oldcat = catOrName;
                 }
-                stat.setVerbruik(stat.getVerbruik() + av.getVerbruikJaar());
+                if (stat != null) {
+                    stat.setVerbruik(stat.getVerbruik() + av.getVerbruikJaar());
+                }
 
             } while (cursor.moveToNext());
 
             list.add(stat);
         }
-
+        cursor.close();
         return list;
     }
 
-    public void updateApparaat(Apparaat apparaat) {
+    void updateApparaat(Apparaat apparaat) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -243,14 +246,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteApparaat(int apparaatId) {
+    void deleteApparaat(int apparaatId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TAB_APPARAAT, APT_ID + " = ?",
                 new String[]{String.valueOf(apparaatId)});
         db.close();
     }
 
-    public List<String> getCategorien() {
+    List<String> getCategorien() {
         List<String> list = new ArrayList<>();
         String selectQuery = "SELECT " + CTE_NAME + " FROM " + TAB_CATEGORIE + " order by " + CTE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -261,10 +264,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 list.add(cursor.getString(0));
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return list;
     }
 
-    public Categorie getCategoriebyName(String cat) {
+    Categorie getCategoriebyName(String cat) {
         String selectQuery = "SELECT " + CTE_ID + "," + CTE_NAME + " FROM " + TAB_CATEGORIE + " WHERE " + CTE_NAME + "=?";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{cat});
@@ -274,10 +278,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             result.setID(cursor.getInt(0));
             result.setName(cursor.getString(1));
         }
+        cursor.close();
         return result;
     }
 
-    public Categorie getCategoriebyId(int catId) {
+    Categorie getCategoriebyId(int catId) {
         String selectQuery = "SELECT " + CTE_ID + "," + CTE_NAME + " FROM " + TAB_CATEGORIE + " WHERE " + CTE_ID + "=?";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{Integer.toString(catId)});
@@ -287,6 +292,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             result.setID(cursor.getInt(0));
             result.setName(cursor.getString(1));
         }
+        cursor.close();
         return result;
     }
 

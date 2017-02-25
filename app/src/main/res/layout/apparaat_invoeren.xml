@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:width="100dp"
+                android:width="110dp"
                 android:text="@string/Apparaat"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
@@ -51,7 +51,7 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:nextFocusDown="@+id/etVermogen"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textColor="@color/colorOranje"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:width="100dp"
+                android:width="110dp"
                 android:text="@string/Categorie"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:width="100dp"
+                android:width="110dp"
                 android:text="@string/Invoerwijze"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"

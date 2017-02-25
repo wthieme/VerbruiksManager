@@ -11,13 +11,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class TipDialoog extends Dialog implements
+ class TipDialoog extends Dialog implements
         android.view.View.OnClickListener {
 
-    Context context;
-    String tipTekst;
+    private Context context;
+    private String tipTekst;
 
-    public TipDialoog(Context ctx, String tip) {
+     TipDialoog(Context ctx, String tip) {
         super(ctx);
         this.context = ctx;
         this.tipTekst = tip;
@@ -45,7 +45,7 @@ public class TipDialoog extends Dialog implements
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("Tips", tipAan);
-        editor.commit();
+        editor.apply();
         dismiss();
     }
 }
