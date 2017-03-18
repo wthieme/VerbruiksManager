@@ -89,6 +89,8 @@
         Deze invoerwijze kan ook gebruikt worden voor apparaten die niet de op een constant vermogen draaien. Voorbeelden hiervan zijn koelkast, diepvries, CV etc. Meet gedurende 24 uur met de stroommeter het verbruik in kWh en voer dit in als Verbruik, 1 keer per dag.
         ]]>
     </string>
+    <string name="PdfKitKat">Om een export te maken moet u Android KitKat of hoger hebben</string>
+    <string name="ErrorPdf">Fout tijdens maken van Pdf</string>
 
     <string-array name="InvoerWijze">
         <item>Vermogen (W) en duur</item>

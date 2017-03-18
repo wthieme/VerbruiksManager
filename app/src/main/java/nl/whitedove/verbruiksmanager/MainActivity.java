@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +119,15 @@ public class MainActivity extends AppCompatActivity {
         TipVanDeDagBijStart();
         InitSpinners();
 
+        FloatingActionButton fabGrafiek = (FloatingActionButton) findViewById(R.id.fabGrafiek);
+        fabGrafiek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
+        fabGrafiek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Grafiek();
+            }
+        });
+
         FloatingActionButton fabAppVoegtoe = (FloatingActionButton) findViewById(R.id.fabAppVoegtoe);
         fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabAppVoegtoe.setOnClickListener(new View.OnClickListener() {
@@ -122,14 +137,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabGrafiek = (FloatingActionButton) findViewById(R.id.fabGrafiek);
-        fabGrafiek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
-        fabGrafiek.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabPdf = (FloatingActionButton) findViewById(R.id.fabPdf);
+        fabPdf.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
+        fabPdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Grafiek();
+                MaakPdf();
             }
         });
+
 
         ToonApparatenEnVerbruik();
     }
@@ -208,6 +224,46 @@ public class MainActivity extends AppCompatActivity {
         tvr1k3.setText(Helper.getEuroString(KostenDag));
         tvr2k3.setText(Helper.getEuroString(KostenMaand));
         tvr3k3.setText(Helper.getEuroString(KostenJaar));
+    }
+
+    private void MaakPdf() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+
+            PdfDocument document = new PdfDocument();
+            View content = findViewById(R.id.lvApparaten);
+            int pageNumber = 1;
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(),
+                    content.getHeight() - 20, pageNumber).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
+            content.draw(page.getCanvas());
+            document.finishPage(page);
+            String pdfName = "WattsOnOff.pdf";
+            //File pad = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            String pad = getDirectory(this);
+            File outputFile = new File(pad, pdfName);
+
+            try {
+                outputFile.createNewFile();
+                OutputStream out = new FileOutputStream(outputFile);
+                document.writeTo(out);
+                document.close();
+                out.close();
+            } catch (IOException e) {
+                Helper.ShowMessage(this, getString(R.string.ErrorPdf));
+            }
+        } else
+            Helper.ShowMessage(this, getString(R.string.PdfKitKat));
+    }
+
+    private static String getDirectory(Context cxt) {
+        String state = Environment.getExternalStorageState();
+        // Return external storage folder
+        if (Environment.MEDIA_MOUNTED.equals(state))
+            //noinspection ConstantConditions
+            return cxt.getExternalFilesDir(null).getAbsolutePath();
+        // Return internal storage folder
+        return cxt.getFilesDir().getAbsolutePath();
     }
 
     private void ApparaatInvoeren() {
