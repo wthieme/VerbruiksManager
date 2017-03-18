@@ -1,0 +1,44 @@
+https://developer.android.com/reference/android/print/pdf/PrintedPdfDocument.html
+
+
+
+From: Wilhelm Thieme <wilhelm.thieme@gmail.com>
+To: M L <bruloo@hotmail.com>
+Subject: Re: WattsOnOff
+Date: Tue, 7 Mar 2017 21:38:42 +0100
+X-Mailer: Sylpheed 3.5.0 (GTK+ 2.24.30; i686-pc-linux-gnu)
+
+Hallo Martin,
+
+Dank voor uw reactie op de app WattsOnOff.
+Ik heb deze app gemaakt uit hobby, omdat ik wat ervaring wilde opdoen met het bouwen van een Android app, waarin de ingevoerde gegevens in een SQL database op de het device zelf (telefoon, tablet) worden opgeslagen.
+Ik vind uw suggesties nuttig, ik zal zeker kijken of ik er iets mee kan. 
+
+Mijn eerste gedachte bij een export en/of print is exporteren naar PDF, vervolgens kan je als gebruiker de pdf openen/printen. Is het ongeveer wat u bedoelt?
+De andere suggestie (het verschil tussen een energie zuiniger apparaat en een energieslurper) kan ik misschien ook wel iets mee, ik zal er zeker over nadenken.
+Ik kan niet beloven wanneer ik hiernaar ga kijken, het hobbyen aan mijn apps (ik heb er meerdere) komt en gaat een beetje met vlagen.
+
+Met vriendelijke groeten,
+
+Wilhelm Thieme
+
+
+On Tue, 7 Mar 2017 18:48:33 +0000
+M L <bruloo@hotmail.com> wrote:
+
+> Hallo,
+> 
+> Goed initiatief die energiemeters in Wageningen. Leuke en nuttige app.
+> 
+> Graag extra mogelijkheid tot export en/of afdrukken van hetgeen is ingevuld.
+> 
+> Idem aanvullende uitleg/functie dat door het simpel invullen van specifiek het verschil in watt van oud minus nieuw in deze app (bijv gloeilamp tov led) direct de besparing in euros weergeeft. Lijkt een open deur... maar toch...
+> 
+> Hopelijk gaan meer mensen deze app gebruiken. Ik probeer te pushen al of niet met de meter. Het blijkt helaas toch soms te hoogdrempelig of men vindt het toch ineens allemaal goed zo.
+> 
+> Mvg
+> Martin
+
+
+-- 
+Wilhelm Thieme <wilhelm.thieme@gmail.com>
