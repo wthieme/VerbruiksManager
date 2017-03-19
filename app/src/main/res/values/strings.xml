@@ -91,6 +91,8 @@
     </string>
     <string name="PdfKitKat">Om een export te maken moet u Android KitKat of hoger hebben</string>
     <string name="ErrorPdf">Fout tijdens maken van Pdf</string>
+    <string name="NoPdfReader">Installeer een Pdf reader</string>
+    <string name="Totaal">Totaal</string>
 
     <string-array name="InvoerWijze">
         <item>Vermogen (W) en duur</item>

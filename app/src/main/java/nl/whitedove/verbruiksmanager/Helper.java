@@ -7,6 +7,10 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 class Helper {
     private static final boolean DEBUG = false;
     static boolean TipGehad = false;
@@ -249,5 +253,17 @@ class Helper {
         td.show();
     }
 
+    static void SortApparaten(List<Apparaat> apparaten)
+    {
+        Collections.sort(apparaten, new Helper.ApparaatComparator());
+    }
+
+    private static class ApparaatComparator implements Comparator<Apparaat> {
+        public int compare(Apparaat left, Apparaat right) {
+            ApparaatVerbruik avLeft = Helper.BerekenVerbruik(left, 1f);
+            ApparaatVerbruik avRight = Helper.BerekenVerbruik(right, 1f);
+            return Double.compare(avRight.getVerbruikJaar(), avLeft.getVerbruikJaar());
+        }
+    }
 
 }

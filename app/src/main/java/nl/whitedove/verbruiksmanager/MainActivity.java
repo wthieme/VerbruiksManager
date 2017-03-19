@@ -2,10 +2,15 @@ package nl.whitedove.verbruiksmanager;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -231,15 +236,66 @@ public class MainActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
 
             PdfDocument document = new PdfDocument();
-            View content = findViewById(R.id.lvApparaten);
-            int pageNumber = 1;
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth(),
-                    content.getHeight() - 20, pageNumber).create();
+
+            // A4 page info
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+            //PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth()-10, content.getHeight()-10, 1).create();
             PdfDocument.Page page = document.startPage(pageInfo);
-            content.draw(page.getCanvas());
+
+            Canvas canvas = page.getCanvas();
+            canvas.drawColor(ContextCompat.getColor(this, R.color.colorGroenAchtergrond));
+
+            Paint paint = new Paint();
+            paint.setTextSize(30);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
+            canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKosten)), 10, 50, paint);
+
+            List<Apparaat> apparaten = mDH.getApparaten(-1);
+            Helper.SortApparaten(apparaten);
+            double prijs = Helper.GetPrijs(this);
+            double VerbruikJaar = 0f;
+            double KostenJaar = 0f;
+
+            int h = 90;
+            int offsetLijn = 18;
+            int marge = 10;
+            int kolomVerbruik = 200;
+            int kolomKosten = 300;
+
+            paint.setTextSize(16);
+            for (Apparaat apparaat : apparaten) {
+                ApparaatVerbruik apv = Helper.BerekenVerbruik(apparaat, prijs);
+                VerbruikJaar += apv.getVerbruikJaar();
+                KostenJaar += apv.getKostenJaar();
+
+                paint.setColor(ContextCompat.getColor(this, R.color.colorLijn));
+                canvas.drawLine(marge, h - offsetLijn, canvas.getWidth() - 2 * marge, h - offsetLijn, paint);
+
+                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
+                canvas.drawText(apparaat.getName(), marge, h, paint);
+
+                paint.setColor(ContextCompat.getColor(this, R.color.colorOranje));
+                paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                canvas.drawText(Helper.getVerbruikString(apv.getVerbruikJaar()), kolomVerbruik, h, paint);
+                canvas.drawText(Helper.getEuroString(apv.getKostenJaar()), kolomKosten, h, paint);
+                h += 25;
+            }
+            paint.setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+            canvas.drawLine(marge, h - offsetLijn, canvas.getWidth() - 2*marge, h - offsetLijn, paint);
+
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
+            canvas.drawText(getString(R.string.Totaal), marge, h, paint);
+
+            paint.setColor(ContextCompat.getColor(this, R.color.colorOranje));
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            canvas.drawText(Helper.getVerbruikString(VerbruikJaar), kolomVerbruik, h, paint);
+            canvas.drawText(Helper.getEuroString(KostenJaar), kolomKosten, h, paint);
+
             document.finishPage(page);
-            String pdfName = "WattsOnOff.pdf";
-            //File pad = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            String pdfName = getString(R.string.app_name) + ".pdf";
             String pad = getDirectory(this);
             File outputFile = new File(pad, pdfName);
 
@@ -251,6 +307,18 @@ public class MainActivity extends AppCompatActivity {
                 out.close();
             } catch (IOException e) {
                 Helper.ShowMessage(this, getString(R.string.ErrorPdf));
+                return;
+            }
+
+            File file = new File(pad, pdfName);
+            Intent target = new Intent(Intent.ACTION_VIEW);
+            target.setDataAndType(Uri.fromFile(file), "application/pdf");
+            target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            Intent intent = Intent.createChooser(target, "Open File");
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Helper.ShowMessage(this, getString(R.string.NoPdfReader));
             }
         } else
             Helper.ShowMessage(this, getString(R.string.PdfKitKat));

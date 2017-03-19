@@ -20,7 +20,7 @@ class CustomListAdapterApparaten extends BaseAdapter {
 
     CustomListAdapterApparaten(Context context, List<Apparaat> listData, Helper.JaarMaandDagType jmd) {
         this.listData = listData;
-        Collections.sort(listData, new ApparaatComparator());
+        Helper.SortApparaten(listData);
         this.jmd = jmd;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
@@ -78,13 +78,5 @@ class CustomListAdapterApparaten extends BaseAdapter {
         TextView tvApparaatVerbruik;
         TextView tvApparaatKosten;
         TextView tvApparaatId;
-    }
-
-    private class ApparaatComparator implements Comparator<Apparaat> {
-        public int compare(Apparaat left, Apparaat right) {
-            ApparaatVerbruik avLeft = Helper.BerekenVerbruik(left, 1f);
-            ApparaatVerbruik avRight = Helper.BerekenVerbruik(right, 1f);
-            return Double.compare(avRight.getVerbruikJaar(), avLeft.getVerbruikJaar());
-        }
     }
 }
