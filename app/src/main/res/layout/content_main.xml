@@ -225,4 +225,12 @@
 
     </LinearLayout>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pcVerbruikMain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:minHeight="350dp" />
+
 </RelativeLayout>

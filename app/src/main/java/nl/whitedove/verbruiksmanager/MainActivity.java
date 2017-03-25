@@ -27,6 +27,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -239,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
 
             // A4 page info
             PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-            //PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(content.getWidth()-10, content.getHeight()-10, 1).create();
             PdfDocument.Page page = document.startPage(pageInfo);
 
             Canvas canvas = page.getCanvas();
@@ -283,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                 h += 25;
             }
             paint.setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-            canvas.drawLine(marge, h - offsetLijn, canvas.getWidth() - 2*marge, h - offsetLijn, paint);
+            canvas.drawLine(marge, h - offsetLijn, canvas.getWidth() - 2 * marge, h - offsetLijn, paint);
 
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
@@ -295,6 +296,8 @@ public class MainActivity extends AppCompatActivity {
             canvas.drawText(Helper.getEuroString(KostenJaar), kolomKosten, h, paint);
 
             document.finishPage(page);
+
+            // Schrijf PDF naar file en open hem vervolgens
             String pdfName = getString(R.string.app_name) + ".pdf";
             String pad = getDirectory(this);
             File outputFile = new File(pad, pdfName);
