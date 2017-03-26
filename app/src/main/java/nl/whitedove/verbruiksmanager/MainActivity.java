@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
             paint.setTextSize(30);
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
-            canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKosten)), 10, 50, paint);
+            canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), 10, 50, paint);
 
             List<Apparaat> apparaten = mDH.getApparaten(-1);
             Helper.SortApparaten(apparaten);

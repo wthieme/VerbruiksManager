@@ -93,6 +93,7 @@
     <string name="ErrorPdf">Fout tijdens maken van Pdf</string>
     <string name="NoPdfReader">Installeer een Pdf reader</string>
     <string name="Totaal">Totaal</string>
+    <string name="VerbruikEnKostenPerJaar">Verbruik en kosten per jaar</string>
 
     <string-array name="InvoerWijze">
         <item>Vermogen (W) en duur</item>
