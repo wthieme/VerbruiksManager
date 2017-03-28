@@ -37,6 +37,9 @@
     <string name="duur">duur</string>
     <string name="kWhPerKeer">kWh per keer</string>
     <string name="kWhPer">kWh per</string>
+    <string name="kWh">kWh</string>
+    <string name="W">W</string>
+    <string name="euro">€</string>
     <string name="Uitleg1">Gebruik deze invoerwijze voor apparaten met een constant vermogen. Voorbeelden zijn TV, lamp, computer, grasmaaier etc. Lees het Wattage af van de meter en voer vervolgens het Wattage, de duur in uren dat het apparaat aan staat en of dit per dag/week/maand of jaar is in.</string>
     <string name="Uitleg2">Gebruik deze invoerwijze voor apparaten die "per keer" gebruikt worden. Voorbeelden zijn koffiezetapparaat, wasmachine, droger, waterkoker etc. Meet het aantal kWh dat het apparaat per keer verbruikt. Voer het verbruik (kWh) en het aantal keer per dag/week/maand/jaar dat het apparaat gebruikt wordt in.</string>
     <string name="komma">,</string>
@@ -94,6 +97,7 @@
     <string name="NoPdfReader">Installeer een Pdf reader</string>
     <string name="Totaal">Totaal</string>
     <string name="VerbruikEnKostenPerJaar">Verbruik en kosten per jaar</string>
+    <string name="kWhPrijs">kWhPrijs</string>
 
     <string-array name="InvoerWijze">
         <item>Vermogen (W) en duur</item>

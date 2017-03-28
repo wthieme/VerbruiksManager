@@ -293,7 +293,9 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         etName.setText(apparaat.getName());
 
         Categorie cat = mDH.getCategoriebyId(apparaat.getCategorieId());
-        spCategorie.setSelection(((ArrayAdapter) spCategorie.getAdapter()).getPosition(cat.getName()));
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<String> aa = (ArrayAdapter<String>) spCategorie.getAdapter();
+        spCategorie.setSelection(aa.getPosition(cat.getName()));
 
         pos = apparaat.getInvoerWijze() - 1;
         spInvoerWijze.setSelection(pos);
@@ -383,12 +385,12 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         TextView tvr3k2 = (TextView) findViewById(R.id.tvr3k2);
         TextView tvr3k3 = (TextView) findViewById(R.id.tvr3k3);
 
-        tvr1k2.setText(Helper.getVerbruikString(apv.getVerbruikDag()));
-        tvr2k2.setText(Helper.getVerbruikString(apv.getVerbruikMaand()));
-        tvr3k2.setText(Helper.getVerbruikString(apv.getVerbruikJaar()));
-        tvr1k3.setText(Helper.getEuroString(apv.getKostenDag()));
-        tvr2k3.setText(Helper.getEuroString(apv.getKostenMaand()));
-        tvr3k3.setText(Helper.getEuroString(apv.getKostenJaar()));
+        tvr1k2.setText(Helper.getVerbruikString(this, apv.getVerbruikDag()));
+        tvr2k2.setText(Helper.getVerbruikString(this, apv.getVerbruikMaand()));
+        tvr3k2.setText(Helper.getVerbruikString(this, apv.getVerbruikJaar()));
+        tvr1k3.setText(Helper.getEuroString(this, apv.getKostenDag()));
+        tvr2k3.setText(Helper.getEuroString(this, apv.getKostenMaand()));
+        tvr3k3.setText(Helper.getEuroString(this, apv.getKostenJaar()));
     }
 
 }

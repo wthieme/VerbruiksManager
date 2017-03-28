@@ -1,5 +1,6 @@
 package nl.whitedove.verbruiksmanager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import org.joda.time.DateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 class Helper {
     private static final boolean DEBUG = false;
@@ -111,7 +113,7 @@ class Helper {
             return _value;
         }
 
-        public static JaarMaandDagType fromInt(int i) {
+        private static JaarMaandDagType fromInt(int i) {
             for (JaarMaandDagType b : JaarMaandDagType.values()) {
                 if (b.getValue() == i) {
                     return b;
@@ -147,21 +149,44 @@ class Helper {
         }
     }
 
-    static String getVerbruikString(double verbruik) {
-        if (verbruik > 10000f)
-            return String.format("%.0f kWh", verbruik / 1000f);
-        if (verbruik > 1000f)
-            return String.format("%.1f kWh", verbruik / 1000f);
-        return String.format("%.2f kWh", verbruik / 1000f);
+    static String getEuroString(Context ctx, double kosten) {
+        return String.format(Locale.getDefault(), "%s %.2f", ctx.getString(R.string.euro), kosten);
     }
 
-    static String getEuroString(double kosten) {
-        return String.format("€ %.2f", kosten);
+    static String getVerbruikString(Context ctx, double verbruik) {
+        if (verbruik > 10000f)
+            return String.format(Locale.getDefault(), "%.0f %s", verbruik / 1000f, ctx.getString(R.string.kWh));
+        if (verbruik > 1000f)
+            return String.format(Locale.getDefault(), "%.1f %s", verbruik / 1000f, ctx.getString(R.string.kWh));
+        return String.format(Locale.getDefault(), "%.2f %s", verbruik / 1000f, ctx.getString(R.string.kWh));
     }
+
+    static String getKeerString(Context ctx, Apparaat apparaat) {
+        String[] saDagWeekMaandJaarW = ctx.getResources().getStringArray(R.array.DagWeekMaandJaar);
+        return String.format(Locale.getDefault(), "%d %s %s",
+                apparaat.getAantalKeer(),
+                ctx.getString(R.string.keerper),
+                saDagWeekMaandJaarW[apparaat.getVerbruikPer() - 1]);
+    }
+
+    static String getVermogenString(Context ctx, int vermogen) {
+        return String.format(Locale.getDefault(), "%d %s",
+                vermogen,
+                ctx.getString(R.string.W));
+    }
+
+    static String getKeerVermogenString(Context ctx, Apparaat apparaat) {
+        String[] saDagWeekMaandJaarW = ctx.getResources().getStringArray(R.array.DagWeekMaandJaar);
+        return String.format(Locale.getDefault(), "%d %s %s",
+                apparaat.getAantalUur(),
+                ctx.getString(R.string.uurper),
+                saDagWeekMaandJaarW[apparaat.getGedurendePer() - 1]);
+    }
+
 
     static double GetPrijs(Context ctx) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        String sPrijs = preferences.getString("kWhPrijs", "");
+        String sPrijs = preferences.getString(ctx.getString(R.string.kWhPrijs), "");
         double prijs = 0f;
         if (tryParseDouble(sPrijs))
             prijs = Double.parseDouble(sPrijs);
@@ -177,6 +202,7 @@ class Helper {
 
     static boolean tryParseInt(String value) {
         try {
+            //noinspection ResultOfMethodCallIgnored
             Integer.parseInt(value);
             return true;
         } catch (NumberFormatException e) {
@@ -186,6 +212,7 @@ class Helper {
 
     static boolean tryParseDouble(String value) {
         try {
+            //noinspection ResultOfMethodCallIgnored
             Double.parseDouble(value);
             return true;
         } catch (NumberFormatException e) {
@@ -234,7 +261,7 @@ class Helper {
         return apv;
     }
 
-    static void Log(String log) {
+    private static void Log(String log) {
         if (Helper.DEBUG) {
             System.out.println(log);
         }
@@ -253,8 +280,7 @@ class Helper {
         td.show();
     }
 
-    static void SortApparaten(List<Apparaat> apparaten)
-    {
+    static void SortApparaten(List<Apparaat> apparaten) {
         Collections.sort(apparaten, new Helper.ApparaatComparator());
     }
 

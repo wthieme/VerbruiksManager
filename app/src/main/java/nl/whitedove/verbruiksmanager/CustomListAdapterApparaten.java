@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 class CustomListAdapterApparaten extends BaseAdapter {
@@ -61,14 +59,14 @@ class CustomListAdapterApparaten extends BaseAdapter {
         holder.tvApparaatId.setText(Integer.toString(apparaat.getId()));
         holder.tvApparaatNaam.setText(apparaat.getName());
         if (jmd == Helper.JaarMaandDagType.Jaar) {
-            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(av.getVerbruikJaar()));
-            holder.tvApparaatKosten.setText(Helper.getEuroString(av.getKostenJaar()));
+            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(context, av.getVerbruikJaar()));
+            holder.tvApparaatKosten.setText(Helper.getEuroString(context, av.getKostenJaar()));
         } else if (jmd == Helper.JaarMaandDagType.Maand) {
-            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(av.getVerbruikMaand()));
-            holder.tvApparaatKosten.setText(Helper.getEuroString(av.getKostenMaand()));
+            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(context, av.getVerbruikMaand()));
+            holder.tvApparaatKosten.setText(Helper.getEuroString(context, av.getKostenMaand()));
         } else if (jmd == Helper.JaarMaandDagType.Dag) {
-            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(av.getVerbruikDag()));
-            holder.tvApparaatKosten.setText(Helper.getEuroString(av.getKostenDag()));
+            holder.tvApparaatVerbruik.setText(Helper.getVerbruikString(context, av.getVerbruikDag()));
+            holder.tvApparaatKosten.setText(Helper.getEuroString(context, av.getKostenDag()));
         }
         return convertView;
     }

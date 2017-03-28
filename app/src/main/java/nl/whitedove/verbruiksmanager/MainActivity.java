@@ -27,14 +27,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.PieChart;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDH;
@@ -78,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
         String[] saJaarMaandDag = getResources().getStringArray(R.array.JaarMaandDag);
         ArrayAdapter<String> jaarMaandDagAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, saJaarMaandDag);
         spJaarMaandDag.setAdapter(jaarMaandDagAdapter);
-        if (!Helper.JaarMaandDagSelectie.isEmpty())
-            spJaarMaandDag.setSelection(((ArrayAdapter) spJaarMaandDag.getAdapter()).getPosition(Helper.JaarMaandDagSelectie));
+        if (!Helper.JaarMaandDagSelectie.isEmpty()) {
+            @SuppressWarnings("unchecked")
+            ArrayAdapter<String> aa = (ArrayAdapter<String>) spJaarMaandDag.getAdapter();
+            spJaarMaandDag.setSelection(aa.getPosition(Helper.JaarMaandDagSelectie));
+        }
 
         spJaarMaandDag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,8 +104,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> categorienAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, cats);
         spCat.setAdapter(categorienAdapter);
 
-        if (!Helper.CategorieSelectieMain.isEmpty())
-            spCat.setSelection(((ArrayAdapter) spCat.getAdapter()).getPosition(Helper.CategorieSelectieMain));
+        if (!Helper.CategorieSelectieMain.isEmpty()) {
+            @SuppressWarnings("unchecked")
+            ArrayAdapter<String> aa = (ArrayAdapter<String>) spCat.getAdapter();
+            spCat.setSelection(aa.getPosition(Helper.CategorieSelectieMain));
+        }
 
         spCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -225,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
         TextView tvr3k2 = (TextView) findViewById(R.id.tvr3k2);
         TextView tvr3k3 = (TextView) findViewById(R.id.tvr3k3);
 
-        tvr1k2.setText(Helper.getVerbruikString(VerbruikDag));
-        tvr2k2.setText(Helper.getVerbruikString(VerbruikMaand));
-        tvr3k2.setText(Helper.getVerbruikString(VerbruikJaar));
-        tvr1k3.setText(Helper.getEuroString(KostenDag));
-        tvr2k3.setText(Helper.getEuroString(KostenMaand));
-        tvr3k3.setText(Helper.getEuroString(KostenJaar));
+        tvr1k2.setText(Helper.getVerbruikString(this, VerbruikDag));
+        tvr2k2.setText(Helper.getVerbruikString(this, VerbruikMaand));
+        tvr3k2.setText(Helper.getVerbruikString(this, VerbruikJaar));
+        tvr1k3.setText(Helper.getEuroString(this, KostenDag));
+        tvr2k3.setText(Helper.getEuroString(this, KostenMaand));
+        tvr3k3.setText(Helper.getEuroString(this, KostenJaar));
     }
 
     private void MaakPdf() {
@@ -240,17 +245,35 @@ public class MainActivity extends AppCompatActivity {
             PdfDocument document = new PdfDocument();
 
             // A4 page info
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-            PdfDocument.Page page = document.startPage(pageInfo);
+            // For testing
+            // int pageHeight = 200;
+            int pageHeight = 842;
+            int pageWidth = 595;
 
+            int pageNum = 1;
+            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNum).create();
+            PdfDocument.Page page = document.startPage(pageInfo);
             Canvas canvas = page.getCanvas();
             canvas.drawColor(ContextCompat.getColor(this, R.color.colorGroenAchtergrond));
 
+            int margeTop = 50;
+            int h = margeTop;
+            int offsetLijn = 18;
+            int marge = 10;
+            int kolomVerbruikPer = 220;
+            int kolomKeer = 300;
+            int kolomVerbruik = 440;
+            int kolomKosten = 515;
+            int kolomPagenum = 560;
+
             Paint paint = new Paint();
-            paint.setTextSize(30);
+            paint.setTextSize(24);
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
-            canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), 10, 50, paint);
+            canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), marge, h, paint);
+            paint.setTextSize(14);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            canvas.drawText(String.format(Locale.getDefault(),"%d", pageNum), kolomPagenum, h, paint);
 
             List<Apparaat> apparaten = mDH.getApparaten(-1);
             Helper.SortApparaten(apparaten);
@@ -258,13 +281,9 @@ public class MainActivity extends AppCompatActivity {
             double VerbruikJaar = 0f;
             double KostenJaar = 0f;
 
-            int h = 90;
-            int offsetLijn = 18;
-            int marge = 10;
-            int kolomVerbruik = 200;
-            int kolomKosten = 300;
+            h = 90;
+            pageNum = 2;
 
-            paint.setTextSize(16);
             for (Apparaat apparaat : apparaten) {
                 ApparaatVerbruik apv = Helper.BerekenVerbruik(apparaat, prijs);
                 VerbruikJaar += apv.getVerbruikJaar();
@@ -277,10 +296,43 @@ public class MainActivity extends AppCompatActivity {
                 paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
                 canvas.drawText(apparaat.getName(), marge, h, paint);
 
-                paint.setColor(ContextCompat.getColor(this, R.color.colorOranje));
+                Helper.InvoerwijzeType invoerWijze = Helper.InvoerwijzeType.fromInt(apparaat.getInvoerWijze());
+
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                canvas.drawText(Helper.getVerbruikString(apv.getVerbruikJaar()), kolomVerbruik, h, paint);
-                canvas.drawText(Helper.getEuroString(apv.getKostenJaar()), kolomKosten, h, paint);
+                if (invoerWijze == Helper.InvoerwijzeType.VermogenPerTijd) {
+                    String verbruikPer = Helper.getVermogenString(this, apparaat.getVermogen());
+                    canvas.drawText(verbruikPer, kolomVerbruikPer, h, paint);
+                    String keer = Helper.getKeerVermogenString(this, apparaat);
+                    canvas.drawText(keer, kolomKeer, h, paint);
+                } else {
+                    String verbruik = Helper.getVerbruikString(this, 1000.0f * apparaat.getVerbruik());
+                    canvas.drawText(verbruik, kolomVerbruikPer, h, paint);
+                    String keer = Helper.getKeerString(this, apparaat);
+                    canvas.drawText(keer, kolomKeer, h, paint);
+                }
+
+                paint.setColor(ContextCompat.getColor(this, R.color.colorOranje));
+                canvas.drawText(Helper.getVerbruikString(this, apv.getVerbruikJaar()), kolomVerbruik, h, paint);
+                canvas.drawText(Helper.getEuroString(this, apv.getKostenJaar()), kolomKosten, h, paint);
+
+                if (h+margeTop > pageHeight) {
+                    document.finishPage(page);
+                    pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNum).create();
+                    page = document.startPage(pageInfo);
+                    canvas = page.getCanvas();
+                    canvas.drawColor(ContextCompat.getColor(this, R.color.colorGroenAchtergrond));
+                    h = margeTop;
+
+                    paint.setTextSize(24);
+                    paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                    paint.setColor(ContextCompat.getColor(this, R.color.colorTekst));
+                    canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), marge, h, paint);
+                    paint.setTextSize(14);
+                    paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+                    canvas.drawText(String.format(Locale.getDefault(),"%d", pageNum), kolomPagenum, h, paint);
+                    pageNum++;
+                    h = 90;
+                }
                 h += 25;
             }
             paint.setColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
@@ -292,8 +344,8 @@ public class MainActivity extends AppCompatActivity {
 
             paint.setColor(ContextCompat.getColor(this, R.color.colorOranje));
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-            canvas.drawText(Helper.getVerbruikString(VerbruikJaar), kolomVerbruik, h, paint);
-            canvas.drawText(Helper.getEuroString(KostenJaar), kolomKosten, h, paint);
+            canvas.drawText(Helper.getVerbruikString(this, VerbruikJaar), kolomVerbruik, h, paint);
+            canvas.drawText(Helper.getEuroString(this, KostenJaar), kolomKosten, h, paint);
 
             document.finishPage(page);
 
@@ -303,6 +355,7 @@ public class MainActivity extends AppCompatActivity {
             File outputFile = new File(pad, pdfName);
 
             try {
+                //noinspection ResultOfMethodCallIgnored
                 outputFile.createNewFile();
                 OutputStream out = new FileOutputStream(outputFile);
                 document.writeTo(out);
