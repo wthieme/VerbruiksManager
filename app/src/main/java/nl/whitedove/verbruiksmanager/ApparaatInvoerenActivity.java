@@ -57,7 +57,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void Init() {
-        FloatingActionButton fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
+        FloatingActionButton fabSave = findViewById(R.id.fabSave);
         fabSave.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabCancel = (FloatingActionButton) findViewById(R.id.fabCancel);
+        FloatingActionButton fabCancel = findViewById(R.id.fabCancel);
         fabCancel.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabVerwijder = (FloatingActionButton) findViewById(R.id.fabVerwijder);
+        FloatingActionButton fabVerwijder = findViewById(R.id.fabVerwijder);
         fabVerwijder.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabVerwijder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        EditText etVermogen = (EditText) findViewById(R.id.etVermogen);
+        EditText etVermogen = findViewById(R.id.etVermogen);
         etVermogen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -92,7 +92,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        EditText etAantalUur = (EditText) findViewById(R.id.etAantalUur);
+        EditText etAantalUur = findViewById(R.id.etAantalUur);
         etAantalUur.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -100,7 +100,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        EditText etVerbruik = (EditText) findViewById(R.id.etVerbruik);
+        EditText etVerbruik = findViewById(R.id.etVerbruik);
         etVerbruik.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -108,7 +108,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        EditText etAantalKeer = (EditText) findViewById(R.id.etAantalKeer);
+        EditText etAantalKeer = findViewById(R.id.etAantalKeer);
         etAantalKeer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -116,10 +116,10 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout llVerbruik = (LinearLayout) findViewById(R.id.llVerbruik);
+        LinearLayout llVerbruik = findViewById(R.id.llVerbruik);
         llVerbruik.setVisibility(View.GONE);
 
-        TextView tvUitleg = (TextView) findViewById(R.id.tvUitleg);
+        TextView tvUitleg = findViewById(R.id.tvUitleg);
         tvUitleg.setText(getString(R.string.Uitleg1));
 
         mDH = new DatabaseHelper(getApplicationContext());
@@ -127,7 +127,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         terug = Helper.SchermType.fromInt(intent.getIntExtra("terug", 0));
         Helper.ActieType actie = Helper.ActieType.fromInt(intent.getIntExtra("actie", 0));
         int ApparaatId = intent.getIntExtra("apparaatId", -1);
-        TextView tvActie = (TextView) findViewById(R.id.tvActie);
+        TextView tvActie = findViewById(R.id.tvActie);
 
         InitSpinners();
 
@@ -143,7 +143,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void ApparaatVerwijderen() {
-        TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
+        TextView tvAppId = findViewById(R.id.tvAppId);
         String sAppId = tvAppId.getText().toString();
 
         if (!sAppId.isEmpty()) {
@@ -166,7 +166,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void ApparaatOplsaan() {
-        TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
+        TextView tvAppId = findViewById(R.id.tvAppId);
         String sAppId = tvAppId.getText().toString();
 
         if (sAppId.isEmpty() || sAppId.equals("-1")) {
@@ -178,7 +178,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void InitSpinners() {
-        Spinner spInvoerWijze = (Spinner) findViewById(R.id.spInvoerWijze);
+        Spinner spInvoerWijze = findViewById(R.id.spInvoerWijze);
         String[] saInvoerWijze = getResources().getStringArray(R.array.InvoerWijze);
         ArrayAdapter<String> adInvoerWijze = new ArrayAdapter<>(this, R.layout.spinner_item, saInvoerWijze);
         spInvoerWijze.setAdapter(adInvoerWijze);
@@ -197,7 +197,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spDagWeekMaandJaarW = (Spinner) findViewById(R.id.spDagWeekMaandJaarW);
+        Spinner spDagWeekMaandJaarW = findViewById(R.id.spDagWeekMaandJaarW);
         String[] saDagWeekMaandJaarW = getResources().getStringArray(R.array.DagWeekMaandJaar);
         ArrayAdapter<String> adDagWeekMaandJaarW = new ArrayAdapter<>(this, R.layout.spinner_item, saDagWeekMaandJaarW);
         spDagWeekMaandJaarW.setAdapter(adDagWeekMaandJaarW);
@@ -214,7 +214,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spDagWeekMaandJaarKwh = (Spinner) findViewById(R.id.spDagWeekMaandJaarKwh);
+        Spinner spDagWeekMaandJaarKwh = findViewById(R.id.spDagWeekMaandJaarKwh);
         String[] saDagWeekMaandJaarKwh = getResources().getStringArray(R.array.DagWeekMaandJaar);
         ArrayAdapter<String> adDagWeekMaandJaarKwh = new ArrayAdapter<>(this, R.layout.spinner_item, saDagWeekMaandJaarKwh);
         spDagWeekMaandJaarKwh.setAdapter(adDagWeekMaandJaarKwh);
@@ -253,15 +253,15 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void WisselInvoerWijze() {
-        Spinner spInvoerWijze = (Spinner) findViewById(R.id.spInvoerWijze);
-        TextView tvUitleg = (TextView) findViewById(R.id.tvUitleg);
+        Spinner spInvoerWijze = findViewById(R.id.spInvoerWijze);
+        TextView tvUitleg = findViewById(R.id.tvUitleg);
 
         String siw = spInvoerWijze.getSelectedItem().toString();
         Helper.InvoerwijzeType invoerWijze = siw.startsWith("Vermogen") ? Helper.InvoerwijzeType.VermogenPerTijd : Helper.InvoerwijzeType.VerbruikPerKeer;
 
-        LinearLayout llVermogen = (LinearLayout) findViewById(R.id.llVermogen);
-        LinearLayout llVerbruik = (LinearLayout) findViewById(R.id.llVerbruik);
-        EditText etApparaat = (EditText) findViewById(R.id.etApparaat);
+        LinearLayout llVermogen = findViewById(R.id.llVermogen);
+        LinearLayout llVerbruik = findViewById(R.id.llVerbruik);
+        EditText etApparaat = findViewById(R.id.etApparaat);
 
         if (invoerWijze == Helper.InvoerwijzeType.VermogenPerTijd) {
             llVermogen.setVisibility(View.VISIBLE);
@@ -277,16 +277,16 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private void ToonApparaat(Apparaat apparaat) {
-        TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
-        EditText etName = (EditText) findViewById(R.id.etApparaat);
-        Spinner spCategorie = (Spinner) findViewById(R.id.spCategorie);
-        Spinner spInvoerWijze = (Spinner) findViewById(R.id.spInvoerWijze);
-        EditText etVermogen = (EditText) findViewById(R.id.etVermogen);
-        EditText etAantalUur = (EditText) findViewById(R.id.etAantalUur);
-        Spinner spDagWeekMaandJaarW = (Spinner) findViewById(R.id.spDagWeekMaandJaarW);
-        EditText etVerbruik = (EditText) findViewById(R.id.etVerbruik);
-        EditText etAantalKeer = (EditText) findViewById(R.id.etAantalKeer);
-        Spinner spDagWeekMaandJaarKwh = (Spinner) findViewById(R.id.spDagWeekMaandJaarKwh);
+        TextView tvAppId = findViewById(R.id.tvAppId);
+        EditText etName = findViewById(R.id.etApparaat);
+        Spinner spCategorie = findViewById(R.id.spCategorie);
+        Spinner spInvoerWijze = findViewById(R.id.spInvoerWijze);
+        EditText etVermogen = findViewById(R.id.etVermogen);
+        EditText etAantalUur = findViewById(R.id.etAantalUur);
+        Spinner spDagWeekMaandJaarW = findViewById(R.id.spDagWeekMaandJaarW);
+        EditText etVerbruik = findViewById(R.id.etVerbruik);
+        EditText etAantalKeer = findViewById(R.id.etAantalKeer);
+        Spinner spDagWeekMaandJaarKwh = findViewById(R.id.spDagWeekMaandJaarKwh);
 
         int pos;
         tvAppId.setText(Integer.toString(apparaat.getId()));
@@ -316,16 +316,16 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     }
 
     private Apparaat GetApparaatFromControls() {
-        TextView tvAppId = (TextView) findViewById(R.id.tvAppId);
-        EditText etName = (EditText) findViewById(R.id.etApparaat);
-        Spinner spCategorie = (Spinner) findViewById(R.id.spCategorie);
-        Spinner spInvoerWijze = (Spinner) findViewById(R.id.spInvoerWijze);
-        EditText etVermogen = (EditText) findViewById(R.id.etVermogen);
-        EditText etAantalUur = (EditText) findViewById(R.id.etAantalUur);
-        Spinner spDagWeekMaandJaarW = (Spinner) findViewById(R.id.spDagWeekMaandJaarW);
-        EditText etVerbruik = (EditText) findViewById(R.id.etVerbruik);
-        EditText etAantalKeer = (EditText) findViewById(R.id.etAantalKeer);
-        Spinner spDagWeekMaandJaarKwh = (Spinner) findViewById(R.id.spDagWeekMaandJaarKwh);
+        TextView tvAppId = findViewById(R.id.tvAppId);
+        EditText etName = findViewById(R.id.etApparaat);
+        Spinner spCategorie = findViewById(R.id.spCategorie);
+        Spinner spInvoerWijze = findViewById(R.id.spInvoerWijze);
+        EditText etVermogen = findViewById(R.id.etVermogen);
+        EditText etAantalUur = findViewById(R.id.etAantalUur);
+        Spinner spDagWeekMaandJaarW = findViewById(R.id.spDagWeekMaandJaarW);
+        EditText etVerbruik = findViewById(R.id.etVerbruik);
+        EditText etAantalKeer = findViewById(R.id.etAantalKeer);
+        Spinner spDagWeekMaandJaarKwh = findViewById(R.id.spDagWeekMaandJaarKwh);
 
         String siw = spInvoerWijze.getSelectedItem().toString();
         Helper.InvoerwijzeType iw = siw.startsWith("Vermogen") ? Helper.InvoerwijzeType.VermogenPerTijd : Helper.InvoerwijzeType.VerbruikPerKeer;
@@ -378,12 +378,12 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
 
         ApparaatVerbruik apv = Helper.BerekenVerbruik(apparaat, prijs);
 
-        TextView tvr1k2 = (TextView) findViewById(R.id.tvr1k2);
-        TextView tvr1k3 = (TextView) findViewById(R.id.tvr1k3);
-        TextView tvr2k2 = (TextView) findViewById(R.id.tvr2k2);
-        TextView tvr2k3 = (TextView) findViewById(R.id.tvr2k3);
-        TextView tvr3k2 = (TextView) findViewById(R.id.tvr3k2);
-        TextView tvr3k3 = (TextView) findViewById(R.id.tvr3k3);
+        TextView tvr1k2 = findViewById(R.id.tvr1k2);
+        TextView tvr1k3 = findViewById(R.id.tvr1k3);
+        TextView tvr2k2 = findViewById(R.id.tvr2k2);
+        TextView tvr2k3 = findViewById(R.id.tvr2k3);
+        TextView tvr3k2 = findViewById(R.id.tvr3k2);
+        TextView tvr3k3 = findViewById(R.id.tvr3k3);
 
         tvr1k2.setText(Helper.getVerbruikString(this, apv.getVerbruikDag()));
         tvr2k2.setText(Helper.getVerbruikString(this, apv.getVerbruikMaand()));

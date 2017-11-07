@@ -1,5 +1,7 @@
 package nl.whitedove.verbruiksmanager;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.AsyncTask;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,14 +29,14 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class VerbruikGrafiekActivity extends AppCompatActivity {
 
-    DatabaseHelper mDH;
+    static DatabaseHelper mDH;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
     }
 
     private void Init() {
-        FloatingActionButton fabAppVoegtoe = (FloatingActionButton) findViewById(R.id.fabAppVoegtoe);
+        FloatingActionButton fabAppVoegtoe = findViewById(R.id.fabAppVoegtoe);
         fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabAppVoegtoe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +81,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabApparaten = (FloatingActionButton) findViewById(R.id.fabApparaten);
+        FloatingActionButton fabApparaten = findViewById(R.id.fabApparaten);
         fabApparaten.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabApparaten.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +96,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
     }
 
     private void InitSpinners() {
-        Spinner spGrCat = (Spinner) findViewById(R.id.spGrCat);
+        Spinner spGrCat = findViewById(R.id.spGrCat);
         List<String> cats = mDH.getCategorien();
         cats.add(0, getResources().getString(R.string.AlleApps));
         cats.add(0, getResources().getString(R.string.AlleCats));
@@ -103,7 +106,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         spGrCat.setAdapter(categorienAdapter);
 
         if (!Helper.SelectieGrafiek.isEmpty())
-            spGrCat.setSelection(((ArrayAdapter) spGrCat.getAdapter()).getPosition(Helper.SelectieGrafiek));
+            spGrCat.setSelection(categorienAdapter.getPosition(Helper.SelectieGrafiek));
 
         spGrCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -135,16 +138,17 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
     }
 
     private void ToondataBackground() {
-        Spinner spGrCat = (Spinner) findViewById(R.id.spGrCat);
+        Spinner spGrCat = findViewById(R.id.spGrCat);
         String sCat = spGrCat.getSelectedItem().toString();
         Helper.SelectieGrafiek = sCat;
-
-        new AsyncGetStatsTask().execute(sCat);
+        Context context = getApplicationContext();
+        //noinspection unchecked
+        new AsyncGetStatsTask(this).execute(Pair.create(context, sCat));
     }
 
     private void ToonGrafiek(List<VerbruikStat> stats) {
-        PieChart chart = (PieChart) findViewById(R.id.pcVerbruik);
-        TextView tvGeenGegevens = (TextView) findViewById(R.id.tvGeenGegevens);
+        PieChart chart = findViewById(R.id.pcVerbruik);
+        TextView tvGeenGegevens = findViewById(R.id.tvGeenGegevens);
         if (stats == null || stats.size() == 0) {
             chart.setVisibility(View.GONE);
             tvGeenGegevens.setVisibility(View.VISIBLE);
@@ -158,6 +162,8 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         chart.setDescription(desc);
         chart.setTouchEnabled(false);
         chart.setNoDataText(getString(R.string.nodata));
+        chart.setEntryLabelColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        chart.setDrawEntryLabels(true);
 
         double totaal = 0f;
         int[] colors = new int[]{ContextCompat.getColor(this, R.color.colorGrafiek1),
@@ -198,7 +204,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         for (VerbruikStat stat : stats) {
             long procent = Math.round(100.0 * stat.getVerbruik() / totaal);
 
-            String txt = procent > 1 ? String.format("%d%%", procent) : "";
+            @SuppressLint("DefaultLocale") String txt = procent > 1 ? String.format("%d%%", procent) : "";
             dataT.add(new PieEntry(procent, txt));
             LegendEntry le = new LegendEntry();
             le.formColor = colors[i++];
@@ -217,8 +223,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
 
         PieDataSet dsT = new PieDataSet(dataT, "");
         dsT.setColors(colors);
-
-        dsT.setValueFormatter(new MyValueFormatter());
+        dsT.setDrawValues(false);
 
         PieData data = new PieData(dsT);
         data.setValueTextSize(14f);
@@ -229,23 +234,24 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
         chart.invalidate();
     }
 
-    public class MyValueFormatter implements IValueFormatter {
-        @Override
-        public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-            return "";
+    private static class AsyncGetStatsTask extends AsyncTask<Pair<Context, String>, Void, List<VerbruikStat>> {
+
+        private WeakReference<VerbruikGrafiekActivity> activityWeakReference;
+
+        AsyncGetStatsTask(VerbruikGrafiekActivity context) {
+            activityWeakReference = new WeakReference<>(context);
         }
-    }
 
-    private class AsyncGetStatsTask extends AsyncTask<String, Void, List<VerbruikStat>> {
-
+        @SafeVarargs
         @Override
-        protected List<VerbruikStat> doInBackground(String... params) {
+        protected final List<VerbruikStat> doInBackground(Pair<Context, String>... params) {
 
-            String sCat = params[0];
+            Context context = params[0].first;
+            String sCat = params[0].second;
             List<VerbruikStat> stats;
             int catId = -1;
-            Boolean alleCats = sCat.equals(getResources().getString(R.string.AlleCats));
-            Boolean alleApps = sCat.equals(getResources().getString(R.string.AlleApps));
+            Boolean alleCats = sCat.equals(context.getString(R.string.AlleCats));
+            Boolean alleApps = sCat.equals(context.getString(R.string.AlleApps));
             if (!alleCats && !alleApps) {
                 Categorie cat = mDH.getCategoriebyName(sCat);
                 catId = cat.getID();
@@ -257,21 +263,15 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             else catApp = Helper.CatAppType.EenCategorie;
 
             stats = mDH.getJaarStats(catApp, catId);
-            Collections.sort(stats, new StatsComparator());
+            Collections.sort(stats, StatsComparator.instance);
 
             return stats;
         }
 
         @Override
         protected void onPostExecute(List<VerbruikStat> stats) {
-            ToonGrafiek(stats);
+            VerbruikGrafiekActivity activity = activityWeakReference.get();
+            if (activity != null) activity.ToonGrafiek(stats);
         }
     }
-
-    public class StatsComparator implements Comparator<VerbruikStat> {
-        public int compare(VerbruikStat left, VerbruikStat right) {
-            return Double.compare(right.getVerbruik(), left.getVerbruik());
-        }
-    }
-
 }

@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void InitSpinners() {
-        Spinner spJaarMaandDag = (Spinner) findViewById(R.id.spJaarMaandDag);
+        Spinner spJaarMaandDag = findViewById(R.id.spJaarMaandDag);
         String[] saJaarMaandDag = getResources().getStringArray(R.array.JaarMaandDag);
         ArrayAdapter<String> jaarMaandDagAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, saJaarMaandDag);
         spJaarMaandDag.setAdapter(jaarMaandDagAdapter);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        Spinner spCat = (Spinner) findViewById(R.id.spCat);
+        Spinner spCat = findViewById(R.id.spCat);
         List<String> cats = mDH.getCategorien();
         cats.add(0, getResources().getString(R.string.AlleApps));
         String[] array = new String[cats.size()];
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         TipVanDeDagBijStart();
         InitSpinners();
 
-        FloatingActionButton fabGrafiek = (FloatingActionButton) findViewById(R.id.fabGrafiek);
+        FloatingActionButton fabGrafiek = findViewById(R.id.fabGrafiek);
         fabGrafiek.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabGrafiek.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabAppVoegtoe = (FloatingActionButton) findViewById(R.id.fabAppVoegtoe);
+        FloatingActionButton fabAppVoegtoe = findViewById(R.id.fabAppVoegtoe);
         fabAppVoegtoe.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabAppVoegtoe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabPdf = (FloatingActionButton) findViewById(R.id.fabPdf);
+        FloatingActionButton fabPdf = findViewById(R.id.fabPdf);
         fabPdf.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorBackgroundFab)));
         fabPdf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void ToonApparatenEnVerbruik() {
 
-        final ListView lvApparaten = (ListView) findViewById(R.id.lvApparaten);
-        Spinner spJaarMaandDag = (Spinner) findViewById(R.id.spJaarMaandDag);
-        Spinner spCat = (Spinner) findViewById(R.id.spCat);
+        final ListView lvApparaten = findViewById(R.id.lvApparaten);
+        Spinner spJaarMaandDag = findViewById(R.id.spJaarMaandDag);
+        Spinner spCat = findViewById(R.id.spCat);
         String sCat = spCat.getSelectedItem().toString();
         Helper.CategorieSelectieMain = sCat;
         int catId = -1;
@@ -223,12 +223,12 @@ public class MainActivity extends AppCompatActivity {
             KostenJaar += apv.getKostenJaar();
         }
 
-        TextView tvr1k2 = (TextView) findViewById(R.id.tvr1k2);
-        TextView tvr1k3 = (TextView) findViewById(R.id.tvr1k3);
-        TextView tvr2k2 = (TextView) findViewById(R.id.tvr2k2);
-        TextView tvr2k3 = (TextView) findViewById(R.id.tvr2k3);
-        TextView tvr3k2 = (TextView) findViewById(R.id.tvr3k2);
-        TextView tvr3k3 = (TextView) findViewById(R.id.tvr3k3);
+        TextView tvr1k2 = findViewById(R.id.tvr1k2);
+        TextView tvr1k3 = findViewById(R.id.tvr1k3);
+        TextView tvr2k2 = findViewById(R.id.tvr2k2);
+        TextView tvr2k3 = findViewById(R.id.tvr2k3);
+        TextView tvr3k2 = findViewById(R.id.tvr3k2);
+        TextView tvr3k3 = findViewById(R.id.tvr3k3);
 
         tvr1k2.setText(Helper.getVerbruikString(this, VerbruikDag));
         tvr2k2.setText(Helper.getVerbruikString(this, VerbruikMaand));
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
             canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), marge, h, paint);
             paint.setTextSize(14);
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-            canvas.drawText(String.format(Locale.getDefault(),"%d", pageNum), kolomPagenum, h, paint);
+            canvas.drawText(String.format(Locale.getDefault(), "%d", pageNum), kolomPagenum, h, paint);
 
             List<Apparaat> apparaten = mDH.getApparaten(-1);
             Helper.SortApparaten(apparaten);
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
                 canvas.drawText(Helper.getVerbruikString(this, apv.getVerbruikJaar()), kolomVerbruik, h, paint);
                 canvas.drawText(Helper.getEuroString(this, apv.getKostenJaar()), kolomKosten, h, paint);
 
-                if (h+margeTop > pageHeight) {
+                if (h + margeTop > pageHeight) {
                     document.finishPage(page);
                     pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNum).create();
                     page = document.startPage(pageInfo);
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                     canvas.drawText(String.format("%s %s", getString(R.string.app_name), getString(R.string.VerbruikEnKostenPerJaar)), marge, h, paint);
                     paint.setTextSize(14);
                     paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-                    canvas.drawText(String.format(Locale.getDefault(),"%d", pageNum), kolomPagenum, h, paint);
+                    canvas.drawText(String.format(Locale.getDefault(), "%d", pageNum), kolomPagenum, h, paint);
                     pageNum++;
                     h = 90;
                 }
@@ -431,8 +431,9 @@ public class MainActivity extends AppCompatActivity {
         ContextMenuAdapter adapter;
 
         inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         child = inflater.inflate(R.layout.listview_context_menu, null);
-        listView = (ListView) child.findViewById(R.id.listView_context_menu);
+        listView = child.findViewById(R.id.listView_context_menu);
 
         contextMenuItems = new ArrayList<>();
 

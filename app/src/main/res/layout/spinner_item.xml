@@ -5,5 +5,5 @@
     android:gravity="bottom"
     android:padding="10dp"
     android:singleLine="true"
-    android:textSize="14dp"
+    android:textSize="14sp"
     android:textColor="@color/colorOranje" />

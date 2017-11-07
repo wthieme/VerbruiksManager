@@ -16,7 +16,7 @@ public class UitlegActivity extends Activity {
     }
 
     private void Init() {
-        TextView tvTekstUitleg = (TextView) findViewById(R.id.tvTekstUitleg);
+        TextView tvTekstUitleg = findViewById(R.id.tvTekstUitleg);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             tvTekstUitleg.setText(Html.fromHtml(getString(R.string.TekstUitleg), Html.FROM_HTML_MODE_LEGACY));
         else
