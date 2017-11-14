@@ -31,7 +31,16 @@ class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CTE_ID = "Id";
     private static final String CTE_NAME = "Name";
 
-    DatabaseHelper(Context context) {
+    private static DatabaseHelper sInstance;
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

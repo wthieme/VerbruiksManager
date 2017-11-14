@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ApparaatInvoerenActivity extends AppCompatActivity {
 
-    DatabaseHelper mDH;
+    private DatabaseHelper mDH;
     Helper.SchermType terug;
 
     @Override
@@ -122,7 +122,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         TextView tvUitleg = findViewById(R.id.tvUitleg);
         tvUitleg.setText(getString(R.string.Uitleg1));
 
-        mDH = new DatabaseHelper(getApplicationContext());
+        mDH = DatabaseHelper.getInstance(getApplicationContext());
         Intent intent = getIntent();
         terug = Helper.SchermType.fromInt(intent.getIntExtra("terug", 0));
         Helper.ActieType actie = Helper.ActieType.fromInt(intent.getIntExtra("actie", 0));
@@ -231,7 +231,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spCategorie = (Spinner) findViewById(R.id.spCategorie);
+        Spinner spCategorie = findViewById(R.id.spCategorie);
         List<String> cats = mDH.getCategorien();
         String[] array = new String[cats.size()];
         cats.toArray(array);

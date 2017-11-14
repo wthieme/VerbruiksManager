@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Init() {
-        mDH = new DatabaseHelper(getApplicationContext());
+        mDH = DatabaseHelper.getInstance(getApplicationContext());
 
         TipVanDeDagBijStart();
         InitSpinners();
