@@ -96,7 +96,6 @@ class DatabaseHelper extends SQLiteOpenHelper {
         values.put(APT_AANTALKEER, apparaat.getAantalKeer());
         values.put(APT_VERBRUIKPER, apparaat.getVerbruikPer());
         db.insert(TAB_APPARAAT, null, values);
-        db.close();
     }
 
     Apparaat getApparaat(int id) {
@@ -252,14 +251,12 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
         db.update(TAB_APPARAAT, values, APT_ID + " = ?",
                 new String[]{String.valueOf(apparaat.getId())});
-        db.close();
     }
 
     void deleteApparaat(int apparaatId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TAB_APPARAAT, APT_ID + " = ?",
                 new String[]{String.valueOf(apparaatId)});
-        db.close();
     }
 
     List<String> getCategorien() {

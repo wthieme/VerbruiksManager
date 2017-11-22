@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ApparaatInvoerenActivity extends AppCompatActivity {
 
-    private DatabaseHelper mDH;
     Helper.SchermType terug;
 
     @Override
@@ -122,7 +121,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         TextView tvUitleg = findViewById(R.id.tvUitleg);
         tvUitleg.setText(getString(R.string.Uitleg1));
 
-        mDH = DatabaseHelper.getInstance(getApplicationContext());
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
         Intent intent = getIntent();
         terug = Helper.SchermType.fromInt(intent.getIntExtra("terug", 0));
         Helper.ActieType actie = Helper.ActieType.fromInt(intent.getIntExtra("actie", 0));
@@ -135,7 +134,7 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
             tvActie.setText(String.format(getString(R.string.AppActie), "toevoegen"));
         } else {
             tvActie.setText(String.format(getString(R.string.AppActie), "wijzigen"));
-            Apparaat apparaat = mDH.getApparaat(ApparaatId);
+            Apparaat apparaat = dh.getApparaat(ApparaatId);
             ToonApparaat(apparaat);
         }
 
@@ -145,10 +144,11 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
     private void ApparaatVerwijderen() {
         TextView tvAppId = findViewById(R.id.tvAppId);
         String sAppId = tvAppId.getText().toString();
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
 
         if (!sAppId.isEmpty()) {
             int appId = Integer.parseInt(sAppId);
-            mDH.deleteApparaat(appId);
+            dh.deleteApparaat(appId);
         }
         Terug();
     }
@@ -232,7 +232,9 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         });
 
         Spinner spCategorie = findViewById(R.id.spCategorie);
-        List<String> cats = mDH.getCategorien();
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+
+        List<String> cats = dh.getCategorien();
         String[] array = new String[cats.size()];
         cats.toArray(array);
 
@@ -244,12 +246,14 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
 
     private void ApparaatToevoegen() {
         Apparaat apparaat = GetApparaatFromControls();
-        mDH.addApparaat(apparaat);
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        dh.addApparaat(apparaat);
     }
 
     private void ApparaatWijzigen() {
         Apparaat apparaat = GetApparaatFromControls();
-        mDH.updateApparaat(apparaat);
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        dh.updateApparaat(apparaat);
     }
 
     private void WisselInvoerWijze() {
@@ -291,8 +295,9 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         int pos;
         tvAppId.setText(Integer.toString(apparaat.getId()));
         etName.setText(apparaat.getName());
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
 
-        Categorie cat = mDH.getCategoriebyId(apparaat.getCategorieId());
+        Categorie cat = dh.getCategoriebyId(apparaat.getCategorieId());
         @SuppressWarnings("unchecked")
         ArrayAdapter<String> aa = (ArrayAdapter<String>) spCategorie.getAdapter();
         spCategorie.setSelection(aa.getPosition(cat.getName()));
@@ -352,7 +357,8 @@ public class ApparaatInvoerenActivity extends AppCompatActivity {
         String sDWMJKwh = spDagWeekMaandJaarKwh.getSelectedItem().toString();
         Helper.DagWeekMaandJaarType dwmjKwh = Helper.DagWeekMaandJaarType.valueOf(sDWMJKwh);
 
-        Categorie cat = mDH.getCategoriebyName(spCategorie.getSelectedItem().toString());
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        Categorie cat = dh.getCategoriebyName(spCategorie.getSelectedItem().toString());
 
         Apparaat apparaat = new Apparaat();
         String sAppId = tvAppId.getText().toString();

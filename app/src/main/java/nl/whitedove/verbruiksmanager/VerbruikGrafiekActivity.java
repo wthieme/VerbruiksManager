@@ -33,8 +33,6 @@ import java.util.List;
 
 public class VerbruikGrafiekActivity extends AppCompatActivity {
 
-    static DatabaseHelper mDH;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grafiek_verbruik);
@@ -87,14 +85,14 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             }
         });
 
-        mDH = DatabaseHelper.getInstance(getApplicationContext());
         InitSpinners();
         ToondataBackground();
     }
 
     private void InitSpinners() {
         Spinner spGrCat = findViewById(R.id.spGrCat);
-        List<String> cats = mDH.getCategorien();
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        List<String> cats = dh.getCategorien();
         cats.add(0, getResources().getString(R.string.AlleApps));
         cats.add(0, getResources().getString(R.string.AlleCats));
         String[] array = new String[cats.size()];
@@ -249,8 +247,10 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             int catId = -1;
             Boolean alleCats = sCat.equals(context.getString(R.string.AlleCats));
             Boolean alleApps = sCat.equals(context.getString(R.string.AlleApps));
+            DatabaseHelper dh = DatabaseHelper.getInstance(context);
+
             if (!alleCats && !alleApps) {
-                Categorie cat = mDH.getCategoriebyName(sCat);
+                Categorie cat = dh.getCategoriebyName(sCat);
                 catId = cat.getID();
             }
 
@@ -259,7 +259,7 @@ public class VerbruikGrafiekActivity extends AppCompatActivity {
             else if (alleCats) catApp = Helper.CatAppType.AlleCategorieen;
             else catApp = Helper.CatAppType.EenCategorie;
 
-            stats = mDH.getJaarStats(catApp, catId);
+            stats = dh.getJaarStats(catApp, catId);
             Collections.sort(stats, StatsComparator.instance);
 
             return stats;

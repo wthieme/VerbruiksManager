@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private DatabaseHelper mDH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Spinner spCat = findViewById(R.id.spCat);
-        List<String> cats = mDH.getCategorien();
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        List<String> cats = dh.getCategorien();
         cats.add(0, getResources().getString(R.string.AlleApps));
         String[] array = new String[cats.size()];
         cats.toArray(array);
@@ -126,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Init() {
-        mDH = DatabaseHelper.getInstance(getApplicationContext());
-
         TipVanDeDagBijStart();
         InitSpinners();
 
@@ -177,12 +175,13 @@ public class MainActivity extends AppCompatActivity {
         String sCat = spCat.getSelectedItem().toString();
         Helper.CategorieSelectieMain = sCat;
         int catId = -1;
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
         if (!sCat.equals(getResources().getString(R.string.AlleApps))) {
-            Categorie cat = mDH.getCategoriebyName(sCat);
+            Categorie cat = dh.getCategoriebyName(sCat);
             catId = cat.getID();
         }
 
-        List<Apparaat> apparaten = mDH.getApparaten(catId);
+        List<Apparaat> apparaten = dh.getApparaten(catId);
         String sjmd = spJaarMaandDag.getSelectedItem().toString();
         Helper.JaarMaandDagSelectie = sjmd;
         Helper.JaarMaandDagType jmd = Helper.JaarMaandDagType.valueOf(sjmd);
@@ -274,8 +273,8 @@ public class MainActivity extends AppCompatActivity {
             paint.setTextSize(14);
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
             canvas.drawText(String.format(Locale.getDefault(), "%d", pageNum), kolomPagenum, h, paint);
-
-            List<Apparaat> apparaten = mDH.getApparaten(-1);
+            DatabaseHelper dh = DatabaseHelper.getInstance(this);
+            List<Apparaat> apparaten = dh.getApparaten(-1);
             Helper.SortApparaten(apparaten);
             double prijs = Helper.GetPrijs(this);
             double VerbruikJaar = 0f;
@@ -414,7 +413,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void ApparaatVerwijderen(int AppId) {
-        mDH.deleteApparaat(AppId);
+        DatabaseHelper dh = DatabaseHelper.getInstance(this);
+        dh.deleteApparaat(AppId);
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
