@@ -1,6 +1,6 @@
 package nl.whitedove.verbruiksmanager;
 
-import java.util.Comparator;
+        import java.util.Comparator;
 
 public class StatsComparator implements Comparator<VerbruikStat> {
     static final StatsComparator instance=new StatsComparator();
