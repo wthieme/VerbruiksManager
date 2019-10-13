@@ -64,7 +64,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabApparaten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:layout_margin="10dp"
             android:src="@drawable/lamp" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAppVoegtoe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
